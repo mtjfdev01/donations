@@ -1,0 +1,122 @@
+/* Payment Option Styling */
+.payment-option {
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-height: 80px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.payment-option:hover {
+    border-color: var(--ltn__secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.payment-option.selected {
+    border-color: var(--ltn__secondary-color);
+    background: #fff5f4;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.payment-option .payment-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--ltn__secondary-color-5), #bceec7);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.payment-option .payment-content {
+    flex: 1;
+}
+
+.payment-option .payment-content h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333333;
+    margin: 0 0 5px 0;
+    line-height: 1.2;
+}
+
+.payment-option .payment-content p {
+    font-size: 0.85rem;
+    color: #666666;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Fix for the layout issue - payment options need proper row structure */
+.col-md-6 .input-item .payment-option {
+    width: 100%;
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .payment-option {
+        padding: 15px;
+        min-height: 70px;
+    }
+    
+    .payment-option .payment-icon {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .payment-option .payment-content h6 {
+        font-size: 0.9rem;
+    }
+    
+    .payment-option .payment-content p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Ensure proper spacing between payment options */
+.row .col-md-6:not(:last-child) .payment-option {
+    margin-bottom: 15px;
+}
+
+/* Fix for the textarea and payment options layout */
+.input-item-textarea {
+    margin-bottom: 20px;
+}
+
+/* Ensure payment options align properly in the grid */
+.col-md-6 .input-item {
+    margin-bottom: 0;
+}
+
+.recurring-radio {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 3px;
+}
+
+.once-radio {
+    display: inline-block;
+    /* margin-left: 10px; */
+    margin-right: 3px;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}

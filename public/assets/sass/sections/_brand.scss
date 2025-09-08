@@ -1,0 +1,162 @@
+/*--------------------------------------------------------------
+Brands Section - Modern marquee (CSS only, no <marquee>)
+---------------------------------------------------------------*/
+
+.brands-section {
+    --accent: #c79652;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #1a1729;
+    --muted: #666;
+    --border: #e8e8e8;
+  
+    /* marquee controls */
+    --gap: 40px;           /* space between items */
+    --duration: 500s;       /* overridden via inline style if needed */
+  
+    padding: 80px 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  
+    .brands-container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 16px;
+      position: relative;
+      overflow: hidden;
+  
+      /* soft edge fades */
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        pointer-events: none;
+        z-index: 2;
+      }
+      &::before {
+        left: 0;
+        background: linear-gradient(to right, var(--bg), rgba(248, 249, 250, 0));
+      }
+      &::after {
+        right: 0;
+        background: linear-gradient(to left, var(--bg), rgba(248, 249, 250, 0));
+      }
+  
+      .title {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text);
+        margin: 0 0 16px 0;
+      }
+    }
+  
+    .brands-marquee {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding: 8px 0;
+    }
+  
+    .brands-track {
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+      width: max-content; /* shrinks to content width */
+      animation: brands-scroll var(--duration) linear infinite;
+      will-change: transform;
+  
+      /* pause on hover */
+      &:hover { animation-play-state: paused; }
+    }
+  
+    @keyframes brands-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); } /* because we duplicated the items once */
+    }
+  
+    .brand-item {
+      flex: 0 0 auto;
+      width: 150px;
+      height: 250px;
+      display: flex !important; /* ensure flex, even if a reset tries otherwise */
+      align-items: center;
+      justify-content: center;
+  
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+  
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 12px;
+      }
+  
+      img {
+        max-width: 120px;
+        max-height: 60px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        filter: grayscale(100%);
+        transition: filter 0.25s ease;
+      }
+  
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+      }
+      &:hover img { filter: grayscale(0%); }
+    }
+  
+    /* Reduced motion accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .brands-track {
+        animation: none;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .brand-item {
+        margin: 8px;
+      }
+    }
+  
+    /* Responsive tweaks */
+    @media (max-width: 1200px) {
+      --gap: 32px;
+    }
+    @media (max-width: 992px) {
+      --gap: 28px;
+      .brand-item {
+        width: 140px;
+        height: 92px;
+        img { max-width: 110px; max-height: 56px; }
+      }
+    }
+    @media (max-width: 768px) {
+      --gap: 24px;
+      .brand-item {
+        width: 130px;
+        height: 86px;
+        img { max-width: 100px; max-height: 52px; }
+      }
+    }
+    @media (max-width: 576px) {
+      --gap: 20px;
+      .brand-item {
+        width: 120px;
+        height: 80px;
+        img { max-width: 92px; max-height: 48px; }
+      }
+    }
+  }
+  

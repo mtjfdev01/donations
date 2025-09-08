@@ -1,0 +1,100 @@
+.monitoring-wrapper {
+    background-color: #24594b;
+    background: linear-gradient(#f6f8f7, #f2f5f3);
+    max-width: 90%;
+    margin: 0 auto;
+    border-radius: 14px;
+
+  }
+  
+  .monitoring-content {
+    background: #ffffff;
+    border: 1px solid #cbd5d1;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    padding: 32px;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: #1b1f24;
+  }
+  
+  .monitoring-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #24594b;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  
+  .monitoring-section {
+    margin-bottom: 24px;
+  }
+  
+  .monitoring-subtitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #285a4d;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  
+  .monitoring-section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4b5563;
+    margin: 0;
+  }
+  
+  .monitoring-divider {
+    height: 2px;
+    background: #95b3a7;
+    margin: 32px 0;
+  }
+  
+  .monitoring-quote {
+    background: #f0f9ff;
+    padding: 24px;
+    border-radius: 8px;
+    border-left: 4px solid #285a4d;
+    margin-bottom: 24px;
+  }
+  
+  .quote-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #24594b;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  
+  .quote-author {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0;
+    text-align: right;
+  }
+  
+  .monitoring-conclusion {
+    text-align: center;
+  }
+  
+  .monitoring-conclusion p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #24594b;
+    margin: 0;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .monitoring-content {
+      padding: 24px;
+    }
+    
+    .monitoring-title {
+      font-size: 2rem;
+    }
+    
+    .monitoring-subtitle {
+      font-size: 1.1rem;
+    }
+  }
