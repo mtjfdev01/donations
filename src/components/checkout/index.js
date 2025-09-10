@@ -199,31 +199,54 @@ const DonationForm = () => {
             });
             
             console.log("response", response);
-            if(response?.data?.success && response?.data?.paymentUrl){
+                console.log("response?.success", response?.data?.success);
+            console.log("response?.data?.paymentUrl", response?.data?.data?.paymentUrl);
+            // if(response?.data?.success && response?.data?.data?.paymentUrl){
+            //     try {
+            //         console.log(
+            //             "JERE ***************"
+            //         );
+            //          window.open(response.data.data.paymentUrl, '_blank');
+            //         setFormData({
+            //             donor_name: '',
+            //             donor_email: '',
+            //             donor_phone: '',
+            //             donation_type: '',
+            //             country: '',
+            //             city: '',
+            //             address: ''
+            //         });
+            //         setPaymentFrequency({});
+            //         setFormMessage({ type: 'success', text: 'Payment gateway opened in new tab' });
+            //     } catch (error) {
+            //         console.error('Error opening payment URL:', error);
+            //         setFormMessage({ type: 'error', text: 'Failed to open payment gateway' });
+            //     }
+            // }
+            if(response?.data?.success && response?.data?.data?.paymentUrl){
                 try {
-                    window.open(response.data.paymentUrl, '_blank');
-                    setFormData({
-                        donor_name: '',
-                        donor_email: '',
-                        donor_phone: '',
-                        donation_type: '',
-                        country: '',
-                        city: '',
-                        address: ''
-                    });
-                    setPaymentFrequency({});
-                    setFormMessage({ type: 'success', text: 'Payment gateway opened in new tab' });
+                    // Try to open in new window
+                    const paymentWindow = window.open('', '_blank');
+                    
+                    if (paymentWindow) {
+                        paymentWindow.location.href = response.data.data.paymentUrl;
+                        paymentWindow.focus();
+                    } else {
+                        // Fallback: redirect in same window
+                        window.location.href = response.data.data.paymentUrl;
+                    }
                 } catch (error) {
                     console.error('Error opening payment URL:', error);
-                    setFormMessage({ type: 'error', text: 'Failed to open payment gateway' });
+                    // Final fallback
+                    window.location.href = response.data.data.paymentUrl;
                 }
             }
             else{
-                setFormMessage({ type: 'error', text: 'Failed to submit donation' });
+                setFormMessage({ type: 'error', text: 'Failed to open invoice url' });
             }
 
         } catch (error) {
-            setFormMessage({ type: 'error', text: 'Failed to submit donation' });
+            setFormMessage({ type: 'error', text: error?.message });
         } finally {
             setIsSubmitting(false);
         }

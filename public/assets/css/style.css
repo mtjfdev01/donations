@@ -18506,6 +18506,11 @@ input.cart-plus-minus-box {
  position: relative;
 }
 
+.icon-shopping-cart:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .icon-shopping-cart svg {
  color:  var(--ltn__secondary-color);
 }
