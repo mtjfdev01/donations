@@ -113,7 +113,7 @@ export const CartProvider = ({ children }) => {
       return false;
     }
 
-    // Create custom donation item
+    // Create custom donation item 
     const customItem = {
       id: `custom-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, // Unique ID
       title: description,
