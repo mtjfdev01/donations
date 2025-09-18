@@ -10,8 +10,8 @@ const CheckOuttV1 = () => {
         <Navbar /> 
         <PageHeader headertitle="Checkout" />
         <DonationForm />
-        <CallToActionV1 />
-        <Footer />
+        {/* <CallToActionV1 />
+        <Footer /> */}
     </div>
 }
 

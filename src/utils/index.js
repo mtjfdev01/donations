@@ -17,7 +17,8 @@ import {
     FaSolarPanel,
     FaFan,
     FaMosque,
-    FaBookOpen
+    FaBookOpen,
+    FaHeart
   } from 'react-icons/fa';
   import { FaCow } from 'react-icons/fa6';
 
@@ -200,3 +201,120 @@ export const donationSections = [
     ]
   }
 ];
+
+export const flooddDonationSections = [
+  {
+    sectionTitle: "Emergency Relief Items",
+    sectionSubtitle: "Essential Supplies for Flood Victims",
+    items: [
+      {
+        iconClass: FaUtensils,
+        title: 'Meal Box',
+        subtitle: 'Essential Food Supply',
+        price: 550,
+        to: '/#',
+      },
+      {
+        iconClass: FaCow,
+        title: 'Animal Feed (100 KG)',
+        subtitle: 'Livestock Nutrition',
+        price: 2500,
+        to: '/#',
+      },
+      {
+        iconClass: FaWater,
+        title: 'Life Jacket',
+        subtitle: 'Safety Equipment',
+        price: 4000,
+        to: '/#',
+      },
+      {
+        iconClass: FaHome,
+        title: 'Tent',
+        subtitle: 'Emergency Shelter',
+        price: 25000,
+        to: '/#',
+      },
+      {
+        iconClass: FaStore,
+        title: 'Ration Pack',
+        subtitle: 'Food Supplies',
+        price: 6500,
+        to: '/#',
+      },
+      {
+        iconClass: FaTint,
+        title: 'Water Bottles (Pack of 12)',
+        subtitle: 'Clean Drinking Water',
+        price: 400,
+        to: '/#',
+      },
+      {
+        iconClass: FaToilet,
+        title: 'Disposable Washroom',
+        subtitle: 'Sanitation Facility',
+        price: 8000,
+        to: '/#',
+      }
+    ]
+  }
+];
+
+// General donation sections (combining both apna_ghar and general use cases)
+export const generalDonationSections = [
+  {
+    sectionTitle: "General Community Support",
+    sectionSubtitle: "Support Our Community Initiatives",
+    items: [
+      {
+        iconClass: FaUsers,
+        title: 'Community Development Fund',
+        subtitle: 'General Community Support',
+        price: 1000,
+        to: '/#',
+      },
+      {
+        iconClass: FaGraduationCap,
+        title: 'Education Support',
+        subtitle: 'Help Fund Education Programs',
+        price: 2000,
+        to: '/#',
+      },
+      {
+        iconClass: FaHeart,
+        title: 'Healthcare Fund',
+        subtitle: 'Support Medical Assistance',
+        price: 3000,
+        to: '/#',
+      },
+      {
+        iconClass: FaLightbulb,
+        title: 'Innovation & Technology',
+        subtitle: 'Support Tech Initiatives',
+        price: 1500,
+        to: '/#',
+      }
+    ]
+  }
+];
+
+// Donation type mapping for easy query parameter handling
+export const DONATION_TYPES = {
+  APNA_GHAR: 'apna_ghar',
+  FLOOD: 'flood',
+  GENERAL: 'general'
+};
+
+// Function to get donation sections based on type
+export const getDonationSectionsByType = (type) => {
+  switch (type) {
+    case DONATION_TYPES.APNA_GHAR:
+      return donationSections;
+    case DONATION_TYPES.FLOOD:
+      return flooddDonationSections;
+    case DONATION_TYPES.GENERAL:
+      return generalDonationSections;
+    default:
+      return donationSections; // Default to apna_ghar
+  }
+};

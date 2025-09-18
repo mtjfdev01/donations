@@ -19,7 +19,7 @@ const DonationForm = () => {
         donor_name: '',
         donor_email: '',
         donor_phone: '',
-        donation_type: '',
+        donation_type: 'general', // Set default value
         country: '',
         city: '',
         address: ''
@@ -29,7 +29,8 @@ const DonationForm = () => {
 
     const handleSubmit = async (e, paymentMethod = null) => {
         e.preventDefault();
-         console.log("formData", paymentMethod);
+         console.log("formData213", formData);
+         return;
         // Use the passed payment method or the current selected payment
         const currentPayment = paymentMethod;
         
@@ -109,25 +110,7 @@ const DonationForm = () => {
             return;
         }
 
-        // if (!formData.donation_type) {
-        //     setFormMessage({ 
-        //         type: 'error', 
-        //         text: 'Please select a donation type' 
-        //     });
-        //     setTimeout(() => {
-        //         // Try to focus the nice-select wrapper or the hidden select
-        //         const niceSelect = document.querySelector('.nice-select');
-        //         const selectField = document.querySelector('select[name="donation_type"]');
-        //         if (niceSelect) {
-        //             niceSelect.focus();
-        //             niceSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        //         } else if (selectField) {
-        //             selectField.focus();
-        //             selectField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        //         }
-        //     }, 100);
-        //     return;
-        // }
+        // Donation type has default value, no validation needed
 
         // if (!formData.country) {
         //     setFormMessage({ 
@@ -186,7 +169,7 @@ const DonationForm = () => {
         setFormMessage({ type: '', text: '' });
 
         try {
-            const response = await axiosInstance.post('/donations', {
+            const payload = {
                 project_id,
                 project_name,
                 ...formData,
@@ -196,7 +179,12 @@ const DonationForm = () => {
                 currency: 'PKR',
                 cartItems,
                 status: 'pending'
-            });
+            };
+            
+            console.log("Form data being sent:", payload);
+            console.log("Donation type value:", formData.donation_type);
+            
+            const response = await axiosInstance.post('/donations', payload);
             
             console.log("response", response);
                 console.log("response?.success", response?.data?.success);
@@ -256,9 +244,21 @@ const DonationForm = () => {
     // Handle input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        console.log(`Input changed - ${name}:`, value);
         setFormData(prev => ({
             ...prev,
             [name]: value
+        }));
+    };
+
+
+    // Handle donation type change specifically
+    const handleDonationTypeChange = (e) => {
+        const value = e.target.value;
+        console.log('Donation type changed to:', value);
+        setFormData(prev => ({
+            ...prev,
+            donation_type: value
         }));
     };
     // Handle frequency change
@@ -279,6 +279,17 @@ const DonationForm = () => {
             }
         }
     }, [formMessage]);
+
+
+    useEffect(() => {
+        // if previously initialized by theme scripts
+        const el = document.querySelector('select[name="donation_type"]');
+        if (el && el.nextElementSibling?.classList.contains('nice-select')) {
+          el.nextElementSibling.remove(); // remove fake dropdown
+          el.style.display = '';          // unhide real select
+        }
+      }, []);
+      
 
     const publicUrl = process.env.PUBLIC_URL + '/';
 
@@ -328,23 +339,24 @@ const DonationForm = () => {
 							</div>
 							</div>
 							<div className="col-md-6">
-                                <div className="input-item">
-                                <select 
-                                        className="nice-select" 
-                                        name="donation_type"
-                                        value={formData.donation_type}
-                                        onChange={handleInputChange}
-                                    >
-                                    <option value="">Select Donation Type</option>
-                                    <option value="General Donation">General Donation</option>
-                                    <option value="Zakat Donation">Zakat Donation</option>
-                                    <option value="Sadqa Donation">Sadqa Donation</option>
-								</select>
-							</div>
+                                <span  className="donation_type_select">
+                                <select
+                                    name="donation_type"
+                                    value={formData.donation_type}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="general">General Donation</option>
+                                    <option value="zakat">Zakat Donation</option>
+                                    <option value="sadqa">Sadqa Donation</option>
+                                </select>
+							</span>
 							</div>
                             {/* country dropdown */}
                             <div className="col-md-6">
-                                <CountryDropdown />
+                                <CountryDropdown 
+                                    value={formData.country}
+                                    onChange={(value) => setFormData(prev => ({ ...prev, country: value }))}
+                                />
                             </div>
                                     <div className="col-md-6">
                                         <div className="input-item input-item-name ltn__custom-icon">
@@ -481,7 +493,7 @@ const DonationForm = () => {
                         </div>
                     </div>
                     {/* Cart Summary Section */}
-                    {/* <div className="col-12">
+                    <div className="col-12 mt-30">
                         <div className="input-item">
                             <div className="cart-summary-content">
                                 <h5 className="section-title mb-3">Donation Summary</h5>
@@ -520,7 +532,7 @@ const DonationForm = () => {
                                 )}
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>

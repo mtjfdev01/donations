@@ -1,19 +1,62 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   FaMinus, 
   FaPlus,
   FaHeart
 } from 'react-icons/fa';
-import { donationSections } from '../../utils';
+import { 
+  donationSections, 
+  flooddDonationSections, 
+  generalDonationSections,
+  getDonationSectionsByType,
+  DONATION_TYPES 
+} from '../../utils';
 import { useCart } from '../../contexts/CartContext';
 import { PiHandHeartDuotone } from "react-icons/pi";
+import CallToActionV1 from './call-to-action-v1';
+import Footer from '../global-components/footer';
 
 const CategoryV2 = (props) => {
   const [quantities, setQuantities] = useState({}); // key: "sectionIndex-idx" -> number
   const [customAmount, setCustomAmount] = useState('');
   const [customDescription, setCustomDescription] = useState('');
+  const [donationType, setDonationType] = useState(DONATION_TYPES.APNA_GHAR);
   const { addToCart, openCart, addCustomDonation } = useCart();
+  const location = useLocation();
+
+  // Parse query parameters to determine donation type
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const donationFor = searchParams.get('donation_for') || searchParams.get('donationFor');
+    
+    if (donationFor) {
+      const normalizedType = donationFor.toLowerCase().trim();
+      
+      switch (normalizedType) {
+        case 'apna_ghar':
+        case 'apnaghar':
+        case 'apna ghar':
+          setDonationType(DONATION_TYPES.APNA_GHAR);
+          break;
+        case 'flood':
+        case 'flood_relief':
+        case 'floodrelief':
+        case 'flood relief':
+          setDonationType(DONATION_TYPES.FLOOD);
+          break;
+        case 'general':
+        case 'general_donations':
+        case 'general donations':
+          setDonationType(DONATION_TYPES.GENERAL);
+          break;
+        default:
+          // If unknown type, default to apna_ghar
+          setDonationType(DONATION_TYPES.APNA_GHAR);
+          break;
+      }
+    }
+  }, [location.search]);
 
   const getKey = (sectionIndex, idx) => `${sectionIndex}-${idx}`;
   const getQty = (key) => quantities[key] ?? 1;
@@ -54,9 +97,14 @@ const handleCustomDonate = () => {
 
   // Get the showAllSections prop, default to true if not provided
   const { showAllSections = true } = props;
+  
+  // Get donation sections based on type from query parameter
+  const allSections = getDonationSectionsByType(donationType);
+  
   // Filter sections based on prop
-  const sectionsToShow = showAllSections ? donationSections : donationSections.slice(0, 1);
+  const sectionsToShow = showAllSections ? allSections : allSections.slice(0, 1);
 
+  
     return (
       <div className="ltn__category-area ltn__product-gutter section-bg-1--- pt-115 pb-70">
         <div className="container">
@@ -64,7 +112,11 @@ const handleCustomDonate = () => {
             <div className="col-lg-12">
               <div className="section-title-area ltn__section-title-2--- text-center">
                 <h6 className="section-subtitle section-subtitle-2--- ltn__secondary-color">{showAllSections ? "Donation Menu" : "Quick Donate"}</h6>
-                <h1 className="section-title">Donate & Participate in Sheltering</h1> 
+                <h1 className="section-title">
+                  {donationType === DONATION_TYPES.APNA_GHAR && "Donate & Participate in Sheltering"}
+                  {donationType === DONATION_TYPES.FLOOD && "Emergency Flood Relief Donations"}
+                  {donationType === DONATION_TYPES.GENERAL && "General Community Support"}
+                </h1> 
               </div>
             </div>
           </div>
@@ -81,8 +133,8 @@ const handleCustomDonate = () => {
               </div>
               
               <div className="row  justify-content-left go-top">
-                {/* Custom Donation Card - Only appears in "Building Hope, Brick by Brick" section */}
-                {section.sectionTitle === "Building Hope, Brick by Brick" && (
+                {/* Custom Donation Card - Appears in the first section of each donation type */}
+                {sectionIndex === 0 && (
                   <div className="col-lg-3 col-md-4 col-sm-12 col-12">
                     <div className="ltn__category-item-5  text-start---">
                       <div className={`category_item_container custom-donation-card ${customAmount ? 'has-amount' : ''}`}>

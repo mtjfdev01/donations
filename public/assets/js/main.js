@@ -350,6 +350,7 @@
           /* --------------------------------------------------------
               15. Slider One Active 
           --------------------------------------------------------- */
+          if($('.ltn__slide-one-active').length){
           $('.ltn__slide-one-active').slick({
               autoplay: false,
               autoplaySpeed: 2000,
@@ -375,9 +376,11 @@
           }).on('afterChange', function(){
               new WOW().init();
           });
+          }
           /* --------------------------------------------------------
               15-2. Slider Active 2
           --------------------------------------------------------- */
+          if($('.ltn__slide-active-2').length){
           $('.ltn__slide-active-2').slick({
               autoplay: false,
               autoplaySpeed: 2000,
@@ -403,7 +406,8 @@
           }).on('afterChange', function(){
               new WOW().init();
           });
-  
+          }
+
           
           /*----------------------
               Slider 11 active
