@@ -7150,6 +7150,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
+    padding-left: 30px;
     margin: 10px 0 10px;
   }
   .ltn__header-logo-and-mobile-menu-in-mobile
@@ -18340,6 +18341,10 @@ input.cart-plus-minus-box {
 
 .site-logo-wrap-start {
   justify-content: flex-start !important;
+}
+
+.cart-container {
+   margin-left: 100px;
 }
 
 

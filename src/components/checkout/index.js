@@ -3,6 +3,10 @@ import CountryDropdown from "../section-components/countries_dd";
 import './index.css';
 import { useCart } from "../../contexts/CartContext";
 import axiosInstance from '../../utils/axios';
+import axios from 'axios';
+import qs from 'qs';
+import CryptoJS from 'crypto-js';
+import LoadingSpinner from '../global-components/loading_spinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom';
 
 const DonationForm = () => {
@@ -12,7 +16,9 @@ const DonationForm = () => {
     const [paymentFrequency, setPaymentFrequency] = useState({});
     const [formMessage, setFormMessage] = useState({ type: '', text: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const { cartItems, getCartTotal } = useCart(); 
+    
     const totalAmount = getCartTotal();
     // State management using hooks
     const [formData, setFormData] = useState({
@@ -30,7 +36,8 @@ const DonationForm = () => {
     const handleSubmit = async (e, paymentMethod = null) => {
         e.preventDefault();
          console.log("formData213", formData);
-         return;
+         setIsLoading(true);
+        //  return;
         // Use the passed payment method or the current selected payment
         const currentPayment = paymentMethod;
         
@@ -185,8 +192,13 @@ const DonationForm = () => {
             console.log("Donation type value:", formData.donation_type);
             
             const response = await axiosInstance.post('/donations', payload);
-            
             console.log("response", response);
+
+            if(currentPayment === 'payfast'){
+                // Call postToPayfast with the response data from the server
+                await postToPayfast(response.data.data, formData);
+            }
+            else{
                 console.log("response?.success", response?.data?.success);
             console.log("response?.data?.paymentUrl", response?.data?.data?.paymentUrl);
             // if(response?.data?.success && response?.data?.data?.paymentUrl){
@@ -213,27 +225,29 @@ const DonationForm = () => {
             // }
             if(response?.data?.success && response?.data?.data?.paymentUrl){
                 try {
+                    setIsLoading(false);
                     // Try to open in new window
                     const paymentWindow = window.open('', '_blank');
-                    
                     if (paymentWindow) {
                         paymentWindow.location.href = response.data.data.paymentUrl;
                         paymentWindow.focus();
                     } else {
-                        // Fallback: redirect in same window
+                        setIsLoading(false);
                         window.location.href = response.data.data.paymentUrl;
                     }
                 } catch (error) {
                     console.error('Error opening payment URL:', error);
-                    // Final fallback
+                    setIsLoading(false);
                     window.location.href = response.data.data.paymentUrl;
                 }
             }
             else{
+                setIsLoading(false);
                 setFormMessage({ type: 'error', text: 'Failed to open invoice url' });
             }
-
+        }
         } catch (error) {
+            setIsLoading(false);
             setFormMessage({ type: 'error', text: error?.message });
         } finally {
             setIsSubmitting(false);
@@ -269,6 +283,62 @@ const DonationForm = () => {
         }));
     };
 
+    function postToPayfast(payfastResponse, formData) {
+        const { MERCHANT_ID, ACCESS_TOKEN, BASKET_ID, TXNAMT } = payfastResponse;
+      
+        // Must not be empty
+        // const MERCHANT_NAME = (process.env.REACT_APP_MERCHANT_NAME || 'MTJ Foundation');
+      
+        // ORDER_DATE best in "YYYY-MM-DD HH:mm:ss"
+        const now = new Date();
+        const ORDER_DATE = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+      
+        // SIGNATURE is just a random string per docs (not a hash)
+        const SIGNATURE = Math.random().toString(36).slice(2, 10);
+        
+        const fields = {
+          MERCHANT_ID,
+          MERCHANT_NAME: '""',
+          TOKEN: ACCESS_TOKEN,                 // from GetAccessToken
+          PROCCODE: '00',
+          TXNAMT,              // must match token call
+          CUSTOMER_MOBILE_NO: formData.donor_phone,
+          CUSTOMER_EMAIL_ADDRESS: formData.donor_email,
+          SIGNATURE,
+          VERSION: SIGNATURE,
+          TXNDESC: (process.env.REACT_APP_TXNDESC || 'Donation'),
+          SUCCESS_URL: (process.env.REACT_APP_SUCCESS_URL || 'https://mtjfoundation.org/thank-you'),
+          FAILURE_URL: (process.env.REACT_APP_FAILURE_URL || 'https://mtjfoundation.org/donation'), //return back to home page if payment fails
+          CHECKOUT_URL: (process.env.REACT_APP_CHECKOUT_URL || `https://mtjfoundation.org/api/donations/status?donation_id=${BASKET_ID}`), // backend api url to handle payfast response to update donation status
+          BASKET_ID,        // must match token call
+          ORDER_DATE,
+          CURRENCY_CODE: (process.env.REACT_APP_CURRENCY_CODE || 'PKR'),
+          TRAN_TYPE: "ECOMM_PURCHASE",
+          CURRENCY_CODE:"PKR"
+        };
+       
+        console.log("fields ************", fields);
+        // Build and submit a real HTML form (POST navigation)
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://ipg1.apps.net.pk/Ecommerce/api/Transaction/PostTransaction';
+        form.target = '_blank'; // or '_blank' to open new tab
+      
+        Object.entries(fields).forEach(([k, v]) => {
+          if (v == null) return;
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = k;
+          input.value = String(v);
+          form.appendChild(input);
+        });
+      
+        document.body.appendChild(form);
+        form.submit(); // user navigates to PayFast hosted page
+
+        setIsLoading(false);
+      }
+
     // Update form message display
     useEffect(() => {
         if (formMessage.text) {
@@ -289,9 +359,8 @@ const DonationForm = () => {
           el.style.display = '';          // unhide real select
         }
       }, []);
-      
-
     const publicUrl = process.env.PUBLIC_URL + '/';
+    if(isLoading)  return <LoadingSpinner />;
 
     return (
         <div className="ltn__contact-message-area mb-120">
@@ -415,7 +484,7 @@ const DonationForm = () => {
                                                     <i className="fas fa-university"></i>
                                                 </div>
                                                 <div className="payment-content">
-                                                    <h6>Jazz Cash, Easy Pesa</h6>
+                                                    <h6>Credit, Debit Card, Jazz Cash, Easy Pesa</h6>
                                                     <p>Blinq's Secure online payment gateway</p>
                                                     <div className="payment-selection-options">
                                                         {/* <div className="radio-group">
@@ -456,15 +525,15 @@ const DonationForm = () => {
                                                 className={`payment-option`}
                                                 onClick={(e) => {
                                                     e.preventDefault();
-                                                    handleSubmit(e, 'blinq');
+                                                    handleSubmit(e, 'payfast');
                                                 }}
                                             >
                                                 <div className="payment-icon">
                                                     <i className="fas fa-credit-card"></i>
                                                 </div>
                                                 <div className="payment-content">
-                                                    <h6>VISA, MasterCard, Credit, Debit Card (2)</h6>
-                                                    <p>Blinq's Secure online payment gateway</p>
+                                                    <h6> Credit, Debit Card, Jazz Cash, Easy Pesa, U Pesa</h6>
+                                                    <p>Payfast's (Faisal Bank Islami) Secure online payment gateway</p>
                                                 </div>
                                             </div>
                                         </div>

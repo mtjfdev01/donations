@@ -1,5 +1,21 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables for PayFast integration:
+
+```
+REACT_APP_CHECKOUT_URL=https://mtjfoundation.org/
+REACT_APP_FAILURE_URL=https://aaslab.org/
+REACT_APP_SUCCESS_URL=https://mtjfoundation.org/
+REACT_APP_CURRENCY_CODE=PKR
+REACT_APP_TXNDESC=Donation
+REACT_APP_MERCHANT_NAME=MTJ Foundation
+REACT_APP_PAYFAST_SECRET_KEY=your-secret-key-here
+```
+
+These variables are used for PayFast payment gateway configuration.
+
 ## Available Scripts
 
 In the project directory, you can run:

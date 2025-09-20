@@ -13,11 +13,11 @@ const NavbarV2 = (props) => {
 				<div className="ltn__header-middle-area ltn__header-sticky ltn__sticky-bg-white">
 					<div className="navbar-container">
 					<div className="row align-items-center justify-content-between">
-						<div className="col-lg-2 col-md-3 col-6">
+						<div className="col-6 ">
 						<div className="site-logo-wrap">
 							<div className="site-logo go-top">
 							<img src={publicUrl+"assets/img/banner/mtjf_logo.png"} alt="mtjf_logo" />  
-							<div onClick={() => { isCartOpen ? closeCart() : openCart(); }}>
+							<div onClick={() => { isCartOpen ? closeCart() : openCart(); }} className='cart-container'>
 									 <div className="icon-shopping-cart">
 										<div className="cart_count">
 										 <sup>{cartCount}</sup>
