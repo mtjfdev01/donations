@@ -1,16 +1,15 @@
 import React from 'react';
 import Navbar from './global-components/navbar-v2';
-import PageHeader from './global-components/page-header';
-import CallToActionV1 from './section-components/call-to-action-v1';
-import Footer from './global-components/footer';
-import DonationForm from './checkout/index';
+
 import axiosInstance from '../utils/axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../contexts/CartContext';
 
 const Thanks = () => {
     const navigate = useNavigate();
     const [isSuccess, setIsSuccess] = useState(false);
+    const { clearCart } = useCart();
 
     let publicUrl = process.env.PUBLIC_URL + '/';
     const imageUrl = publicUrl + "assets/img/thanks.jpg";
@@ -30,8 +29,10 @@ const Thanks = () => {
         }
     }
     useEffect(() => {
-        getDonationStatus();
-    }, [donationId]);
+        // Clear the cart when user reaches the thanks page
+        clearCart();
+        // getDonationStatus();
+    }, [donationId, clearCart]);
     return (
         <div>
             <Navbar /> 

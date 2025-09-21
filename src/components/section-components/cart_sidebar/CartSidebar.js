@@ -19,9 +19,26 @@ const CartSidebar = () => {
   const navigate = useNavigate();
 
   console.log("cartItems 1122", cartItems);
+  
   const handleCheckout = () => {
     closeCart();  // Close the cart sidebar
     navigate('/checkout');  // Navigate without page reload
+  };
+
+  const continueDonating = () => {
+    // Check if we are on checkout page
+    const currentPath = window.location.pathname;
+    const isOnCheckoutPage = currentPath.includes('/checkout');
+    
+    if (isOnCheckoutPage) {
+      // If on checkout page, redirect to donate page with flood_relief parameter
+      navigate('/donate?donation_for=flood_relief');
+      closeCart();
+
+    } else {
+      // If not on checkout page, just close the cart
+      closeCart();
+    }
   };
 
   if (!isCartOpen) return null;
@@ -111,7 +128,7 @@ const CartSidebar = () => {
             </div>
             
             <div className="cart-actions">
-              <button className="continue-shopping-btn" onClick={closeCart}>
+              <button className="continue-shopping-btn" onClick={continueDonating}>
                 Continue Donating
               </button>
               <button className="checkout-btn" onClick={handleCheckout}>

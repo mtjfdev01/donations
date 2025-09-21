@@ -21,7 +21,7 @@ const CategoryV2 = (props) => {
   const [quantities, setQuantities] = useState({}); // key: "sectionIndex-idx" -> number
   const [customAmount, setCustomAmount] = useState('');
   const [customDescription, setCustomDescription] = useState('');
-  const [donationType, setDonationType] = useState(DONATION_TYPES.APNA_GHAR);
+  const [donationType, setDonationType] = useState(DONATION_TYPES.FLOOD);
   const { addToCart, openCart, addCustomDonation } = useCart();
   const location = useLocation();
 
@@ -112,7 +112,7 @@ const handleCustomDonate = () => {
             <div className="col-lg-12">
               <div className="section-title-area ltn__section-title-2--- text-center">
                 <h6 className="section-subtitle section-subtitle-2--- ltn__secondary-color">{showAllSections ? "Donation Menu" : "Quick Donate"}</h6>
-                <h1 className="section-title">
+                <h1 className="section-title" style={{color: 'red'}}>
                   {donationType === DONATION_TYPES.APNA_GHAR && "Donate & Participate in Sheltering"}
                   {donationType === DONATION_TYPES.FLOOD && "Emergency Flood Relief Donations"}
                   {donationType === DONATION_TYPES.GENERAL && "General Community Support"}

@@ -36,7 +36,6 @@ const DonationForm = () => {
     const handleSubmit = async (e, paymentMethod = null) => {
         e.preventDefault();
          console.log("formData213", formData);
-         setIsLoading(true);
         //  return;
         // Use the passed payment method or the current selected payment
         const currentPayment = paymentMethod;
@@ -171,11 +170,13 @@ const DonationForm = () => {
             document.querySelector('input[name="donor_phone"]')?.focus();
             return;
         }
-        
+
         setIsSubmitting(true);
         setFormMessage({ type: '', text: '' });
 
         try {
+            setIsLoading(true);
+
             const payload = {
                 project_id,
                 project_name,
@@ -196,7 +197,7 @@ const DonationForm = () => {
 
             if(currentPayment === 'payfast'){
                 // Call postToPayfast with the response data from the server
-                await postToPayfast(response.data.data, formData);
+                 postToPayfast(response.data.data, formData);
             }
             else{
                 console.log("response?.success", response?.data?.success);
@@ -298,7 +299,7 @@ const DonationForm = () => {
         
         const fields = {
           MERCHANT_ID,
-          MERCHANT_NAME: '""',
+          MERCHANT_NAME: 'MTJ Foundation',
           TOKEN: ACCESS_TOKEN,                 // from GetAccessToken
           PROCCODE: '00',
           TXNAMT,              // must match token call
@@ -307,8 +308,8 @@ const DonationForm = () => {
           SIGNATURE,
           VERSION: SIGNATURE,
           TXNDESC: (process.env.REACT_APP_TXNDESC || 'Donation'),
-          SUCCESS_URL: (process.env.REACT_APP_SUCCESS_URL || 'https://mtjfoundation.org/thank-you'),
-          FAILURE_URL: (process.env.REACT_APP_FAILURE_URL || 'https://mtjfoundation.org/donation'), //return back to home page if payment fails
+          SUCCESS_URL: (process.env.REACT_APP_SUCCESS_URL || 'https://mtjf-donations.vercel.app/thanks'),
+          FAILURE_URL: (process.env.REACT_APP_FAILURE_URL || 'https://mtjf-donations.vercel.app/donate?donation_for=flood_relief'), //return back to home page if payment fails
           CHECKOUT_URL: (process.env.REACT_APP_CHECKOUT_URL || `https://mtjfoundation.org/api/donations/status?donation_id=${BASKET_ID}`), // backend api url to handle payfast response to update donation status
           BASKET_ID,        // must match token call
           ORDER_DATE,
@@ -364,201 +365,203 @@ const DonationForm = () => {
 
     return (
         <div className="ltn__contact-message-area mb-120">
-				<div className="container">
+			<div className="container">
 				<div className="row">
 					<div className="col-lg-12">
-					<div className="ltn__form-box contact-form-box box-shadow white-bg">
-						<h4 className="title-2">Complete Your Donation</h4>
-                            <form id="contact-form" onSubmit={handleSubmit} action={publicUrl + "mail.php"} method="post">
-						<div className="row">
-							<div className="col-md-6">
-							<div className="input-item input-item-name ltn__custom-icon">
-                                <input 
-                                    type="text" 
-                                    name="donor_name" 
-                                    placeholder="Enter your name"
-                                    value={formData.donor_name}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-							</div>
-							</div>
-							<div className="col-md-6">
-							<div className="input-item input-item-email ltn__custom-icon">
-                                <input 
-                                    type="email" 
-                                    name="donor_email" 
-                                    placeholder="Enter email address"
-                                    value={formData.donor_email}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-							</div>
-							</div>
-                            <div className="col-md-6">
-							<div className="input-item input-item-phone ltn__custom-icon">
-                                <input 
-                                    type="text" 
-                                    name="donor_phone" 
-                                    placeholder="Enter phone number"
-                                    value={formData.donor_phone}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-							</div>
-							</div>
-							<div className="col-md-6">
-                                <span  className="donation_type_select">
-                                <select
-                                    name="donation_type"
-                                    value={formData.donation_type}
-                                    onChange={handleInputChange}
-                                >
-                                    <option value="general">General Donation</option>
-                                    <option value="zakat">Zakat Donation</option>
-                                    <option value="sadqa">Sadqa Donation</option>
-                                </select>
-							</span>
-							</div>
-                            {/* country dropdown */}
-                            <div className="col-md-6">
-                                <CountryDropdown 
-                                    value={formData.country}
-                                    onChange={(value) => setFormData(prev => ({ ...prev, country: value }))}
-                                />
-                            </div>
-                                    <div className="col-md-6">
-                                        <div className="input-item input-item-name ltn__custom-icon">
-                                            <input 
-                                                type="text" 
-                                                name="city" 
-                                                placeholder="Enter your city"
-                                                value={formData.city}
+                        <div className="ltn__form-box contact-form-box box-shadow white-bg">
+                            <h4 className="title-2">Complete Your Donation</h4>
+                                <form id="contact-form" onSubmit={handleSubmit} action={publicUrl + "mail.php"} method="post">
+                            <div className="row">
+                                <div className="col-md-6">
+                                <div className="input-item input-item-name ltn__custom-icon">
+                                    <input 
+                                        type="text" 
+                                        name="donor_name" 
+                                        placeholder="Enter your name"
+                                        value={formData.donor_name}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                </div>
+                                <div className="col-md-6">
+                                <div className="input-item input-item-email ltn__custom-icon">
+                                    <input 
+                                        type="email" 
+                                        name="donor_email" 
+                                        placeholder="Enter email address"
+                                        value={formData.donor_email}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                </div>
+                                <div className="col-md-6">
+                                <div className="input-item input-item-phone ltn__custom-icon">
+                                    <input 
+                                        type="text" 
+                                        name="donor_phone" 
+                                        placeholder="Enter phone number"
+                                        value={formData.donor_phone}
+                                        onChange={handleInputChange}
+                                        required
+                                    />
+                                </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <span  className="donation_type_select">
+                                    <select
+                                        name="donation_type"
+                                        value={formData.donation_type}
+                                        onChange={handleInputChange}
+                                    >
+                                        <option value="general">General Donation</option>
+                                        <option value="zakat">Zakat Donation</option>
+                                        <option value="sadqa">Sadqa Donation</option>
+                                    </select>
+                                </span>
+                                </div>
+                                {/* country dropdown */}
+                                <div className="col-md-6">
+                                    <CountryDropdown 
+                                        value={formData.country}
+                                        onChange={(value) => setFormData(prev => ({ ...prev, country: value }))}
+                                    />
+                                </div>
+                                        <div className="col-md-6">
+                                            <div className="input-item input-item-name ltn__custom-icon">
+                                                <input 
+                                                    type="text" 
+                                                    name="city" 
+                                                    placeholder="Enter your city"
+                                                    value={formData.city}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="input-item input-item-textarea ltn__custom-icon">
+                                            <textarea 
+                                                name="address" 
+                                                placeholder="Enter address"
+                                                value={formData.address}
                                                 onChange={handleInputChange}
                                                 required
                                             />
                                         </div>
-                                    </div>
-                                    <div className="input-item input-item-textarea ltn__custom-icon">
-                                        <textarea 
-                                            name="address" 
-                                            placeholder="Enter address"
-                                            value={formData.address}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    
-                                    {/* Payment Method Section */}
-                                    <h5 className="title-2">Donate Via :</h5>
-                                    <div className="col-md-6">
-                                        <div className="input-item">
-                                            <div 
-                                                className={`payment-option`}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleSubmit(e, 'meezan');
-                                                }}
-                                            >
-                                                <div className="payment-icon">
-                                                    <i className="fas fa-credit-card"></i>
+                                        
+                                        {/* Payment Method Section */}
+                                        <h5 className="title-2">Donate Via :</h5>
+                                        {/* <div className="col-md-6">
+                                            <div className="input-item">
+                                                <div 
+                                                    className={`payment-option`}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleSubmit(e, 'meezan');
+                                                    }}
+                                                >
+                                                    <div className="payment-icon">
+                                                        <i className="fas fa-credit-card"></i>
+                                                    </div>
+                                                    <div className="payment-content">
+                                                        <h6>VISA, MasterCard, Credit, Debit Card</h6>
+                                                        <p>Meezan's Secure online payment gateway</p>
+                                                    </div>
                                                 </div>
-                                                <div className="payment-content">
-                                                    <h6>VISA, MasterCard, Credit, Debit Card</h6>
-                                                    <p>Meezan's Secure online payment gateway</p>
+                                            </div>
+                                        </div> */}
+
+                                        {/* payfast payment option */}
+                                        <div className="col-md-6">
+                                            <div className="input-item">
+                                                <div 
+                                                    className={`payment-option`}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleSubmit(e, 'payfast');
+                                                    }}
+                                                >
+                                                    <div className="payment-icon">
+                                                        <i className="fas fa-credit-card"></i>
+                                                    </div>
+                                                    <div className="payment-content">
+                                                        <h6> Credit, Debit Card, Jazz Cash, Easy Pesa, U Pesa</h6>
+                                                        <p>Payfast's (Faisal Bank Islami) Secure online payment gateway</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div className="col-md-6">
-                                        <div className="input-item">
-                                            <div 
-                                                className={`payment-option`}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleSubmit(e, 'blinq');
-                                                }}
-                                            >
-                                                <div className="payment-icon">
-                                                    <i className="fas fa-university"></i>
-                                                </div>
-                                                <div className="payment-content">
-                                                    <h6>Credit, Debit Card, Jazz Cash, Easy Pesa</h6>
-                                                    <p>Blinq's Secure online payment gateway</p>
-                                                    <div className="payment-selection-options">
-                                                        {/* <div className="radio-group">
-                                                            <div className="radio-item">
-                                                                <input 
-                                                                    type="radio" 
-                                                                    id="meezan-once" 
-                                                                    name="meezan-frequency" 
-                                                                    value="once"
-                                                                    checked={paymentFrequency['meezan'] === 'once'}
-                                                                    onChange={() => handleFrequencyChange('meezan', 'once')}
-                                                                    className="once-radio"
-                                                                />
-                                                                <label htmlFor="meezan-once">Once</label>
-                                                            </div>
-                                                            <div className="radio-item">
-                                                                <input 
-                                                                    type="radio" 
-                                                                    id="meezan-recurring" 
-                                                                    name="meezan-frequency" 
-                                                                    value="recurring"
-                                                                    checked={paymentFrequency['meezan'] === 'recurring'}
-                                                                    className="recurring-radio"
-                                                                    onChange={() => handleFrequencyChange('meezan', 'recurring')}  
-                                                                />
-                                                                <label htmlFor="meezan-recurring">Recurring</label>
-                                                            </div>
-                                                        </div> */}
+                                        {/* blinq payment option */}
+                                        <div className="col-md-6">
+                                            <div className="input-item">
+                                                <div 
+                                                    className={`payment-option`}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleSubmit(e, 'blinq');
+                                                    }}
+                                                >
+                                                    <div className="payment-icon">
+                                                        <i className="fas fa-university"></i>
+                                                    </div>
+                                                    <div className="payment-content">
+                                                        <h6>Credit, Debit Card, Jazz Cash, Easy Pesa</h6>
+                                                        <p>Blinq's Secure online payment gateway</p>
+                                                        <div className="payment-selection-options">
+                                                            {/* <div className="radio-group">
+                                                                <div className="radio-item">
+                                                                    <input 
+                                                                        type="radio" 
+                                                                        id="meezan-once" 
+                                                                        name="meezan-frequency" 
+                                                                        value="once"
+                                                                        checked={paymentFrequency['meezan'] === 'once'}
+                                                                        onChange={() => handleFrequencyChange('meezan', 'once')}
+                                                                        className="once-radio"
+                                                                    />
+                                                                    <label htmlFor="meezan-once">Once</label>
+                                                                </div>
+                                                                <div className="radio-item">
+                                                                    <input 
+                                                                        type="radio" 
+                                                                        id="meezan-recurring" 
+                                                                        name="meezan-frequency" 
+                                                                        value="recurring"
+                                                                        checked={paymentFrequency['meezan'] === 'recurring'}
+                                                                        className="recurring-radio"
+                                                                        onChange={() => handleFrequencyChange('meezan', 'recurring')}  
+                                                                    />
+                                                                    <label htmlFor="meezan-recurring">Recurring</label>
+                                                                </div>
+                                                            </div> */}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="col-md-6">
-                                        <div className="input-item">
-                                            <div 
-                                                className={`payment-option`}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleSubmit(e, 'payfast');
-                                                }}
-                                            >
-                                                <div className="payment-icon">
-                                                    <i className="fas fa-credit-card"></i>
-                                                </div>
-                                                <div className="payment-content">
-                                                    <h6> Credit, Debit Card, Jazz Cash, Easy Pesa, U Pesa</h6>
-                                                    <p>Payfast's (Faisal Bank Islami) Secure online payment gateway</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <p>
-                                    <label className="input-info-save mb-0">
-                                        <input type="checkbox" name="agree" required defaultChecked /> 
-                                        Save my name, email, and website in this browser for the next time I comment.
-                                    </label>
-                                </p>
-                                
-                                {/* <div className="btn-wrapper mt-0">
-                                    <button 
-                                        className="btn theme-btn-1 btn-effect-1 text-uppercase" 
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                    >
-                                        {isSubmitting ? 'Processing...' : 'Complete Donation'}
-                                    </button>
-                                </div> */}
-                                 
-                                <p className="form-messege mb-0 mt-20" style={{color: 'red'}} />
-                            </form>
+                                    
+                                    <p>
+                                        <label className="input-info-save mb-0">
+                                            <input type="checkbox" name="agree" required defaultChecked /> 
+                                            Save my name, email, and website in this browser for the next time I comment.
+                                        </label>
+                                    </p>
+                                    
+                                    {/* <div className="btn-wrapper mt-0">
+                                        <button 
+                                            className="btn theme-btn-1 btn-effect-1 text-uppercase" 
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                        >
+                                            {isSubmitting ? 'Processing...' : 'Complete Donation'}
+                                        </button>
+                                    </div> */}
+                                    
+                                    <p className="form-messege mb-0 mt-20" style={{color: 'red'}} />
+                                </form>
                         </div>
                     </div>
                     {/* Cart Summary Section */}
