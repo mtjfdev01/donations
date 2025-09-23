@@ -26,7 +26,7 @@ const NavbarV2 = (props) => {
 									 <PiHandHeartDuotone size={40} />
 									</div>
 							</div>
-							</div>
+							</div> 
 						</div>
 						</div>
 						<div className="col-6 text-end">
