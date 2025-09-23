@@ -20,6 +20,11 @@ import {
     FaBookOpen,
     FaHeart
   } from 'react-icons/fa';
+  import { GiLifeJacket } from "react-icons/gi";
+  import { GiOpenedFoodCan } from "react-icons/gi";
+  import { PiBowlFoodFill } from "react-icons/pi";
+  import { GiWaterBottle } from "react-icons/gi";
+
   import { FaCow } from 'react-icons/fa6';
 
 // 🔹 Organized donation categories into 6 sections
@@ -208,7 +213,7 @@ export const flooddDonationSections = [
     sectionSubtitle: "Essential Supplies for Flood Victims",
     items: [
       {
-        iconClass: FaUtensils,
+        iconClass: GiOpenedFoodCan,
         title: 'Meal Box',
         subtitle: 'Essential Food Supply',
         price: 550,
@@ -222,7 +227,7 @@ export const flooddDonationSections = [
         to: '/#',
       },
       {
-        iconClass: FaWater,
+        iconClass: GiLifeJacket,
         title: 'Life Jacket',
         subtitle: 'Safety Equipment',
         price: 4000,
@@ -236,14 +241,14 @@ export const flooddDonationSections = [
         to: '/#',
       },
       {
-        iconClass: FaStore,
+        iconClass: PiBowlFoodFill,
         title: 'Ration Pack',
         subtitle: 'Food Supplies',
         price: 6500,
         to: '/#',
       },
       {
-        iconClass: FaTint,
+        iconClass: GiWaterBottle,
         title: 'Water Bottles (Pack of 12)',
         subtitle: 'Clean Drinking Water',
         price: 400,

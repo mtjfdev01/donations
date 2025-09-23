@@ -42,10 +42,11 @@ const Donate  = () => {
     return <div>
         <Navbar />
         {/* <Banner /> */}
-        <PageHeader headertitle={getPageTitle()} subheader="Donate" />
+        <PageHeader  customclass="flood-bg-image" />
         <CategoryV2 showAllSections={true} />
         {/* <CallToActionV1 />
-        <Footer /> */}
+         */}
+         <Footer />
     </div>
 }
 

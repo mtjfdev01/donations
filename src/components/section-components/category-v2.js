@@ -106,15 +106,15 @@ const handleCustomDonate = () => {
 
   
     return (
-      <div className="ltn__category-area ltn__product-gutter section-bg-1--- pt-115 pb-70">
+      <div className="ltn__category-area ltn__product-gutter section-bg-1--- pt-30 pb-70">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="section-title-area ltn__section-title-2--- text-center">
-                <h6 className="section-subtitle section-subtitle-2--- ltn__secondary-color">{showAllSections ? "Donation Menu" : "Quick Donate"}</h6>
+              <div className="section-title-area ltn__section-title-2--- text-center lg-pt-80">
+                {/* <h6 className="section-subtitle section-subtitle-2--- ltn__secondary-color">{showAllSections ? "Donation Menu" : "Quick Donate"}</h6> */}
                 <h1 className="section-title" style={{color: 'red'}}>
                   {donationType === DONATION_TYPES.APNA_GHAR && "Donate & Participate in Sheltering"}
-                  {donationType === DONATION_TYPES.FLOOD && "Emergency Flood Relief Donations"}
+                  {donationType === DONATION_TYPES.FLOOD && "Flood Relief and Rehabilitation Program 2025"}
                   {donationType === DONATION_TYPES.GENERAL && "General Community Support"}
                 </h1> 
               </div>

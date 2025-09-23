@@ -229,11 +229,11 @@ font-family: 'Poppins', sans-serif;
   /* Darken */
   --ltn__primary-color-3: #133236;
   /* Lighten */
-  --ltn__secondary-color: #6DA77A;
+  --ltn__secondary-color:  #2AB1E1;
   --ltn__secondary-color-2: #5B9869;
   /* dark */
-  --ltn__secondary-color-4: #32583b;
-  --ltn__secondary-color-5: #1a6e2d;
+  --ltn__secondary-color-4: #21a6d6;
+  --ltn__secondary-color-5: #116c8d;
 
 
   /* Darken */
@@ -18536,3 +18536,42 @@ input.cart-plus-minus-box {
   }
 }
 
+.clr_white {
+  color: white !important;
+}
+
+@media screen and (min-width: 768px) {
+  .-ml-30 {
+    margin-left: -30px !important;
+  }
+}
+
+
+
+@media screen and (min-width: 768px) {
+  .lg-pt-80 {
+    padding-top: 80px !important;
+  }
+}
+
+.flood-bg-image {
+  background-size: 100% auto;      /* fill horizontally only */
+  min-width: 100vw;
+  background-position: center center;
+  background-repeat: no-repeat;
+  
+}
+
+@media screen and (min-width: 768px) {
+  .flood-bg-image {
+    min-height: 700px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .flood-bg-image {
+    /* min-height: 530px !important; */
+    background-position: left center;
+    margin-left: -230px;
+  }
+}

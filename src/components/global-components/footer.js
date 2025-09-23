@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Social from '../section-components/social';
 import Copyright from './copyright';
+import { FaMobileScreen } from "react-icons/fa6";
+import { IoCallSharp } from "react-icons/io5";
 
 class Footer_v1 extends Component {
 
@@ -51,11 +53,11 @@ class Footer_v1 extends Component {
 				          <div className="footer-widget footer-about-widget">
 				            <div className="footer-logo">
 				              <div className="site-logo">
-				                <img src={publicUrl+"assets/img/logo.png"} alt="Logo" />
+				                <img src={publicUrl+"assets/img/banner/mtjf_logo.png"} alt="Logo" /> 
 				              </div>
 				            </div>
-				            <p>A Shelter of Dignity for Widows, Abandoned
-							Women & Orphans .</p>
+				            {/* <p>A Shelter of Dignity for Widows, Abandoned
+							Women & Orphans .</p> */}
 				            <div className="footer-address">
 				              <ul>
 				                <li>
@@ -68,7 +70,7 @@ class Footer_v1 extends Component {
 				                </li>
 				                <li>
 				                  <div className="footer-address-icon">
-				                    <i className="icon-call" />
+				                    <IoCallSharp />
 				                  </div>
 				                  <div className="footer-address-info">
 				                    <p><a href="tel:+92 303 2440000">+92 303 2440000</a></p>
@@ -92,35 +94,88 @@ class Footer_v1 extends Component {
 				        </div>
 				        <div className="col-xl-2 col-md-6 col-sm-6 col-12">
 				          <div className="footer-widget footer-menu-widget clearfix">
-				            <h4 className="footer-title">Company</h4>
+				            <h4 className="footer-title">Quick Links</h4>
 				            <div className="footer-menu go-top">
 				              <ul>
-				                <li><Link to="#">Home</Link></li>
-				                <li><Link to="#">About</Link></li>
-				                <li><Link to="#">FAQ</Link></li>
-				                <li><Link to="/contact">Contact us</Link></li>
-				                <li><Link to="/donate">Donate</Link></li>
+				                <li><a href="https://mtjfoundation.org/" target="_blank">Home</a></li>
+				                <li><a href="https://mtjfoundation.org/about-mtj/" target="_blank">About</a></li>
+				                <li><a href="https://mtjfoundation.org/our-projects/" target="_blank">Projects</a></li>
+				                <li><a href="https://mtjfoundation.org/volunteer/" target="_blank">Volunteer</a></li>
+				                <li><a href="https://mtjfoundation.org/contact/" target="_blank">Contact us</a></li>
 				              </ul>
 				            </div>
 				          </div>
 				        </div>
 				        <div className="col-xl-2 col-md-6 col-sm-6 col-12">
 				          <div className="footer-widget footer-menu-widget clearfix">
-				            <h4 className="footer-title">Services</h4>
+				            <h4 className="footer-title">Locations </h4>
 				            <div className="footer-menu go-top">
 				              <ul>
-				                <li><Link to="#">Terms &amp; Conditions</Link></li>
-				              </ul>
+							  <li>
+				                  <div className="footer-address-icon">
+				                    <i className="icon-placeholder" /> <span style={{fontWeight: 'bold'}}>Karachi:</span>
+				                  </div>
+				                  <div className="footer-address-info">
+				                    <p>Office No. 1, 190-1/A, Khayyam Chambers Nursery Market, Block 2, P.E.C.H.S. Main Shahrah-e-Faisal, Karachi</p>
+									<div className="footer-address-icon">
+				                    <IoCallSharp /><span style={{fontWeight: 'bold'}}>021-111-786-853</span>
+				                  </div>
+								  <div className="footer-address-icon">
+									{/* here i want mobile icon icon-call */}
+				                    <FaMobileScreen  /> <span style={{fontWeight: 'bold'}}> 0300-2001575 </span>
+				                  </div>
+				                  </div>
+				                </li>	
+								<li>
+				                  <div className="footer-address-icon">
+								  <i className="icon-placeholder" /> <span style={{fontWeight: 'bold'}}>Multan:</span>
+				                  </div>
+								  <div className="footer-address-info">
+				                    <p>House #89 Block C, Model Town Multan</p>
+									<div className="footer-address-icon">
+				                    <IoCallSharp /> <span style={{fontWeight: 'bold'}}>061-111-786-853</span>
+				                  </div>
+								  <div className="footer-address-icon">
+									{/* here i want mobile icon icon-call */}
+				                    <FaMobileScreen  /> <span style={{fontWeight: 'bold'}}> 0300-4422543 </span>
+				                  </div>
+				                  </div>
+				                </li>				              
+
+								</ul>
 				            </div>
 				          </div>
 				        </div>
 				        <div className="col-xl-2 col-md-6 col-sm-6 col-12">
 				          <div className="footer-widget footer-menu-widget clearfix">
-				            <h4 className="footer-title">Customer Care</h4>
+				            {/* <h4 className="footer-title">Locations (2)</h4> */}
 				            <div className="footer-menu go-top">
 				              <ul>
-				                <li><Link to="#">FAQ</Link></li>
-				                <li><Link to="/contact">Contact us</Link></li>
+							  <li>
+				                  <div className="footer-address-icon">
+								  <i className="icon-placeholder" /> <span style={{fontWeight: 'bold'}}>Lahore:</span>
+				                  </div>
+								  <div className="footer-address-info">
+				                    <p>Office # 59-B, Faisal Town, Opposite Moon Market. Lahore</p>
+								  <div className="footer-address-icon">
+									{/* here i want mobile icon icon-call */}
+				                    <FaMobileScreen  /> <span style={{fontWeight: 'bold'}}> 0300-4425557 </span>
+				                  </div>
+				                  </div>
+				                </li>	
+								<li>
+				                  <div className="footer-address-icon">
+								  <i className="icon-placeholder" /> <span style={{fontWeight: 'bold'}}>Faisalabad:</span>
+				                  </div>
+								  <div className="footer-address-info">
+				                    <p>Jamia al Hasanain, Green Town, Faisalabad</p>
+								  <div className="footer-address-icon">
+									{/* here i want mobile icon icon-call */}
+									<IoCallSharp /><span style={{fontWeight: 'bold'}}>061-111-786-853</span>
+									<div className="footer-address-icon"><FaMobileScreen  /> <span style={{fontWeight: 'bold'}}> 0300-4463903 </span></div>
+				                  </div>
+				                  </div>
+				                </li>			              
 				              </ul>
 				            </div>
 				          </div>
@@ -137,8 +192,8 @@ class Footer_v1 extends Component {
 				                </div>
 				              </form>
 				            </div>
-				            <h5 className="mt-30">We Accept</h5>
-				            <img src={publicUrl+"assets/img/icons/payment-4.png"} alt="Payment Image" />
+				            {/* <h5 className="mt-30">We Accept</h5>
+				            <img src={publicUrl+"assets/img/icons/payment-4.png"} alt="Payment Image" /> */}
 				          </div>
 				        </div>
 				      </div>

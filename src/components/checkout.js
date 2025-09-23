@@ -8,7 +8,7 @@ import DonationForm from './checkout/index';
 const CheckOuttV1 = () => {
     return <div>
         <Navbar /> 
-        <PageHeader headertitle="Checkout" />
+        {/* <PageHeader /> */}
         <DonationForm />
         {/* <CallToActionV1 />
         <Footer /> */}

@@ -115,39 +115,6 @@ const DonationForm = () => {
             }, 100);
             return;
         }
-
-        // Donation type has default value, no validation needed
-
-        // if (!formData.country) {
-        //     setFormMessage({ 
-        //         type: 'error', 
-        //         text: 'Please select your country' 
-        //     });
-        //     setTimeout(() => {
-        //         const countryField = document.querySelector('.country-select');
-        //         if (countryField) {
-        //             countryField.focus();
-        //             countryField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        //         }
-        //     }, 100);
-        //     return;
-        // }
-        
-        // if (!currentPayment) {
-        //     setFormMessage({ 
-        //         type: 'error', 
-        //         text: 'Please select a payment method' 
-        //     });
-        //     setTimeout(() => {
-        //         // Focus on first payment option
-        //         const paymentOption = document.querySelector('.payment-option');
-        //         if (paymentOption) {
-        //             paymentOption.focus();
-        //             paymentOption.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        //         }
-        //     }, 100);
-        //     return;
-        // }
         
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -189,41 +156,16 @@ const DonationForm = () => {
                 status: 'pending'
             };
             
-            console.log("Form data being sent:", payload);
-            console.log("Donation type value:", formData.donation_type);
-            
             const response = await axiosInstance.post('/donations', payload);
-            console.log("response", response);
 
             if(currentPayment === 'payfast'){
                 // Call postToPayfast with the response data from the server
                  postToPayfast(response.data.data, formData);
             }
             else{
-                console.log("response?.success", response?.data?.success);
-            console.log("response?.data?.paymentUrl", response?.data?.data?.paymentUrl);
-            // if(response?.data?.success && response?.data?.data?.paymentUrl){
-            //     try {
-            //         console.log(
-            //             "JERE ***************"
-            //         );
-            //          window.open(response.data.data.paymentUrl, '_blank');
-            //         setFormData({
-            //             donor_name: '',
-            //             donor_email: '',
-            //             donor_phone: '',
-            //             donation_type: '',
-            //             country: '',
-            //             city: '',
-            //             address: ''
-            //         });
-            //         setPaymentFrequency({});
-            //         setFormMessage({ type: 'success', text: 'Payment gateway opened in new tab' });
-            //     } catch (error) {
-            //         console.error('Error opening payment URL:', error);
-            //         setFormMessage({ type: 'error', text: 'Failed to open payment gateway' });
-            //     }
-            // }
+                // console.log("response?.success", response?.data?.success);
+            // console.log("response?.data?.paymentUrl", response?.data?.data?.paymentUrl);
+
             if(response?.data?.success && response?.data?.data?.paymentUrl){
                 try {
                     setIsLoading(false);
