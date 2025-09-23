@@ -41,10 +41,8 @@ const CartSidebar = () => {
     }
   };
 
-  if (!isCartOpen) return null;
-
   return (
-    <>
+    <div className="cart-sidebar-wrapper" style={{ display: isCartOpen ? 'block' : 'none' }}>
       {/* Backdrop */}
       <div className="cart-backdrop" onClick={closeCart}></div>
       
@@ -138,7 +136,7 @@ const CartSidebar = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
