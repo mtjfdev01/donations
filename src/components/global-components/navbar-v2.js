@@ -28,6 +28,11 @@ const NavbarV2 = (props) => {
 							</div>
 							</div>
 						</div>
+						</div>
+						<div className="col-6 text-end">
+							<Link to="/donate" className="btn btn-primary donate-now-btn">
+								Donate Now
+							</Link>
 						</div>	
 					</div>
 					</div>

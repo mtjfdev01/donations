@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CountryDropdown from "../section-components/countries_dd";
 import './index.css';
 import { useCart } from "../../contexts/CartContext";
+import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 import axiosInstance from '../../utils/axios';
 import axios from 'axios';
 import qs from 'qs';
@@ -17,7 +18,7 @@ const DonationForm = () => {
     const [formMessage, setFormMessage] = useState({ type: '', text: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { cartItems, getCartTotal } = useCart(); 
+    const { cartItems, getCartTotal, updateQuantity, removeFromCart } = useCart(); 
     
     const totalAmount = getCartTotal();
     // State management using hooks
@@ -513,17 +514,70 @@ const DonationForm = () => {
                                 <h5 className="section-title mb-3">Donation Summary</h5>
                                 {cartItems.length > 0 ? (
                                     <>
+                                        {/* Column Headers */}
+                                        <div className="cart-summary-header">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <h6 className="column-title">Item</h6>
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <h6 className="column-title">Quantity</h6>
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <h6 className="column-title">Total Price</h6>
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <h6 className="column-title">Actions</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Mobile Titles */}
+                                        <div className="mobile-titles">
+                                            <h6>Item</h6>
+                                            <h6>Quantity</h6>
+                                            <h6>Price</h6>
+                                        </div>
+                                        
                                         {cartItems.map((item) => (
                                             <div key={item.id} className="cart-item-summary">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <span className="item-name">{item.title}</span>
+                                                <div className="row align-items-center">
+                                                    <div className="mobile-info-row">
+                                                        <div className="col-md-3">
+                                                            <span className="item-name">{item.title}</span>
+                                                        </div>
+                                                        <div className="col-md-3">
+                                                            <span className="item-quantity">{item.quantity}</span>
+                                                        </div>
+                                                        <div className="col-md-3">
+                                                            <span className="item-total">{(item.price * item.quantity).toLocaleString()} PKR</span>
+                                                        </div>
                                                     </div>
                                                     <div className="col-md-3">
-                                                        <span className="item-quantity">Quantity: {item.quantity}</span>
-                                                    </div>
-                                                    <div className="col-md-3">
-                                                        <span className="item-total">{(item.price * item.quantity).toLocaleString()} PKR</span>
+                                                        <div className="quantity-controls d-flex align-items-center justify-content-center">
+                                                            <button
+                                                                className="qty-btn btn btn-sm btn-outline-secondary"
+                                                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                                                disabled={item.quantity <= 1}
+                                                                title="Decrease quantity"
+                                                            >
+                                                                <i className="fas fa-minus"></i>
+                                                            </button>
+                                                            <button
+                                                                className="qty-btn btn btn-sm btn-outline-secondary"
+                                                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                                                title="Increase quantity"
+                                                            >
+                                                                <i className="fas fa-plus"></i>
+                                                            </button>
+                                                            <button
+                                                                className="btn btn-sm  clr_red "
+                                                                onClick={() => removeFromCart(item.id)}
+                                                                title="Remove item"
+                                                            >
+                                                                <i className="fas fa-trash"></i>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

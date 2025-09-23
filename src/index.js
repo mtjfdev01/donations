@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";  // U
 import Donate from './components/donate';
 import Thanks from './components/thanks';
 import CheckOuttV1 from './components/checkout';
+import CategoryV2 from './components/section-components/category-v2';
+import EmbedDonation from './components/EmbedDonation';
 
 class Root extends Component {
     render() {
@@ -39,6 +41,8 @@ class Root extends Component {
                             <Route path="/donate" element={<Donate />} />
                             <Route path="/thanks" element={<Thanks />} />
                             <Route path="/checkout" element={<CheckOuttV1 />} />
+                            <Route path="/embed/donation" element={<EmbedDonation />} />
+
 
                         </Routes>
                         {/* <TawkMessengerReact

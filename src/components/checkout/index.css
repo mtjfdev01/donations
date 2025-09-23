@@ -120,3 +120,169 @@
     align-items: center;
     /* justify-content: center; */
 }
+
+/* Donation Summary Quantity Controls */
+.cart-item-summary {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    margin-bottom: 10px;
+}
+
+.cart-item-summary:last-child {
+    border-bottom: none;
+}
+
+.quantity-controls .qty-btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.quantity-controls .qty-btn:hover:not(:disabled) {
+    background-color: var(--ltn__secondary-color);
+    border-color: var(--ltn__secondary-color);
+    color: white;
+}
+
+.quantity-controls .qty-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.qty-value {
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+}
+
+.item-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.item-total {
+    font-weight: 600;
+    color: var(--ltn__secondary-color);
+}
+
+/* Desktop: Reset mobile-info-row to normal behavior */
+.mobile-info-row {
+    display: contents; /* Makes the div transparent on desktop */
+}
+
+.mobile-info-row > div {
+    /* Reset any mobile styles on desktop */
+    flex: none;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+/* Responsive adjustments for quantity controls */
+@media (max-width: 767px) {
+    .cart-summary-header  {
+        display: none; /* Hide original column headers on mobile */
+    }
+    
+    .mobile-titles {
+        display: flex;
+        justify-content: space-between;
+        background-color: #f8f9fa;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border-bottom: 2px solid var(--ltn__secondary-color);
+    }
+    
+    .mobile-titles h6 {
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+        text-align: center;
+        flex: 1;
+    }
+    
+    .cart-item-summary {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #fff;
+    }
+    
+    .cart-item-summary .row {
+        flex-direction: column;
+    }
+    
+    /* Mobile info row - flexbox for single row on mobile */
+    .mobile-info-row {
+        display: flex;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .mobile-info-row > div {
+        flex: 1;
+        text-align: center;
+        margin-bottom: 0;
+    }
+    
+    /* Actions row */
+    .cart-item-summary .row > div:last-child {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .quantity-controls {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .qty-btn {
+        margin-right: 5px;
+    }
+}
+
+.clr_red {
+    color: red;
+}
+
+.clr_red:hover {
+    opacity: 0.8;
+}
+
+/* Column Headers Styling */
+.cart-summary-header {
+    background-color: #f8f9fa;
+    padding: 15px 0;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-bottom: 2px solid var(--ltn__secondary-color);
+}
+
+.column-title {
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}
+
+.item-quantity {
+    font-weight: 500;
+    color: #666;
+    text-align: center;
+    display: block;
+}
+
+
+@media screen and (min-width: 767px) {
+    .mobile-titles {
+        display: none;
+    }
+}
