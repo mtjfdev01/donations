@@ -41,7 +41,7 @@ class Root extends Component {
                             <Route path="/donate" element={<Donate />} />
                             <Route path="/thanks" element={<Thanks />} />
                             <Route path="/checkout" element={<CheckOuttV1 />} />
-                            <Route path="/embed/donation" element={<CategoryV2 showAllSections={true} />} />
+                            <Route path="/donation_screen" element={<CategoryV2 showAllSections={true} />} />
 
                             
                         </Routes>
