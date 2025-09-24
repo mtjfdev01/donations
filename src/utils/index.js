@@ -218,6 +218,7 @@ export const flooddDonationSections = [
         subtitle: 'Essential Food Supply',
         price: 550,
         to: '/#',
+        image: '/assets/img/flood_appeal_icons/icons-01.png',
       },
       {
         iconClass: FaCow,

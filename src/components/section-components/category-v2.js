@@ -3,19 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { 
   FaMinus, 
   FaPlus,
-  FaHeart
 } from 'react-icons/fa';
 import { 
-  donationSections, 
-  flooddDonationSections, 
-  generalDonationSections,
   getDonationSectionsByType,
   DONATION_TYPES 
 } from '../../utils';
 import { useCart } from '../../contexts/CartContext';
 import { PiHandHeartDuotone } from "react-icons/pi";
-import CallToActionV1 from './call-to-action-v1';
-import Footer from '../global-components/footer';
+
 
 const CategoryV2 = (props) => {
   const [quantities, setQuantities] = useState({}); // key: "sectionIndex-idx" -> number
@@ -24,6 +19,7 @@ const CategoryV2 = (props) => {
   const [donationType, setDonationType] = useState(DONATION_TYPES.FLOOD);
   const { addToCart, openCart, addCustomDonation } = useCart();
   const location = useLocation();
+  let publicUrl = process.env.PUBLIC_URL+'/'
 
   // Parse query parameters to determine donation type
   useEffect(() => {
@@ -185,7 +181,9 @@ const handleCustomDonate = () => {
                          className='category_item_container'
                         >
                           <span className="category-icon">
-                            <item.iconClass />
+                            <item.iconClass /> 
+                            {/*  */}
+                            {/* <img src={publicUrl+item.image}  />    */}
                           </span>
                           <b><span>{item.title}</span></b>
                           <span className="category-subtitle">{item.subtitle}</span>
