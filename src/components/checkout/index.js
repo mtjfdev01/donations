@@ -437,7 +437,7 @@ const DonationForm = () => {
                                         </div>
 
                                         {/* blinq payment option */}
-                                        {/* <div className="col-md-6">
+                                        <div className="col-md-6">
                                             <div className="input-item">
                                                 <div 
                                                     className={`payment-option`}
@@ -452,7 +452,7 @@ const DonationForm = () => {
                                                     <div className="payment-content">
                                                         <h6>Credit, Debit Card, Jazz Cash, Easy Pesa</h6>
                                                         <p>Blinq's Secure online payment gateway</p>
-                                                        <div className="payment-selection-options"> */}
+                                                        <div className="payment-selection-options">
                                                             {/* <div className="radio-group">
                                                                 <div className="radio-item">
                                                                     <input 
@@ -479,11 +479,11 @@ const DonationForm = () => {
                                                                     <label htmlFor="meezan-recurring">Recurring</label>
                                                                 </div>
                                                             </div> */}
-                                                        {/* </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> */}
+                                        </div>
                                     </div>
                                     
                                     <p>
