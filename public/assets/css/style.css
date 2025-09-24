@@ -18275,6 +18275,110 @@ input.cart-plus-minus-box {
   /* Uses default Bootstrap btn-primary styling */
 }
 
+/* Enhanced Radio Button Styling for Donation Frequency */
+.donation-frequency-selector {
+  margin-bottom: 20px;
+}
+
+.donation-frequency-selector .radio-group {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 15px;
+}
+
+.donation-frequency-selector .radio-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.donation-frequency-selector .radio-item input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.donation-frequency-selector .radio-item label {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.donation-frequency-selector .radio-item label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.donation-frequency-selector .radio-item label:after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #007bff;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.donation-frequency-selector .radio-item input[type="radio"]:checked + label:before {
+  border-color: #007bff;
+  background-color: #f8f9ff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.donation-frequency-selector .radio-item input[type="radio"]:checked + label:after {
+  opacity: 1;
+}
+
+.donation-frequency-selector .radio-item input[type="radio"]:checked + label {
+  color: #007bff;
+  font-weight: 700;
+}
+
+.donation-frequency-selector .radio-item:hover label:before {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.donation-frequency-selector .radio-item:hover label {
+  color: #007bff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .donation-frequency-selector .radio-group {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .donation-frequency-selector .radio-item label {
+    font-size: 14px;
+  }
+}
+
 .eligibility-item .category-icon {
   font-size: 42px; /* Slightly smaller icon */
   color: #2563eb;

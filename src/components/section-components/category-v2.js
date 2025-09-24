@@ -17,6 +17,7 @@ const CategoryV2 = (props) => {
   const [customAmount, setCustomAmount] = useState('');
   const [customDescription, setCustomDescription] = useState('');
   const [donationType, setDonationType] = useState(DONATION_TYPES.FLOOD);
+  const [giveFrequency, setGiveFrequency] = useState('once'); // 'once' or 'monthly'
   const { addToCart, openCart, addCustomDonation } = useCart();
   const location = useLocation();
   let publicUrl = process.env.PUBLIC_URL+'/'
@@ -80,7 +81,7 @@ const handleDonate = (item, quantity, sectionIndex, idx) => {
 };
 
 // Handle custom donation
-const handleCustomDonate = () => {
+const handleCustomDonation = () => {
   const amount = parseFloat(customAmount);
   if (amount > 0) {
     addCustomDonation(amount, customDescription || 'Custom Donation');
@@ -88,6 +89,12 @@ const handleCustomDonate = () => {
     setCustomDescription('');
     openCart();
   }
+};
+
+// Handle give frequency change
+const handleGiveFrequencyChange = (frequency) => {
+  setGiveFrequency(frequency);
+  console.log('Give frequency changed to:', frequency);
 };
 
 
@@ -122,7 +129,34 @@ const handleCustomDonate = () => {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="section-subtitle-area text-center mb-4">
-                    <h3 className="section-subtitle ltn__secondary-color text-start">{section.sectionTitle}</h3>
+                    {/* Radio buttons for Give Once and Give Monthly */}
+                    {/* <div className="donation-frequency-selector">
+                      <div className="radio-group">
+                        <div className="radio-item">
+                          <input 
+                            type="radio" 
+                            id="give-once" 
+                            name="give-frequency" 
+                            value="once" 
+                            checked={giveFrequency === 'once'} 
+                            onChange={() => handleGiveFrequencyChange('once')} 
+                          />
+                          <label htmlFor="give-once">Give Once</label>
+                        </div>
+                        <div className="radio-item">
+                          <input 
+                            type="radio" 
+                            id="give-monthly" 
+                            name="give-frequency" 
+                            value="monthly" 
+                            checked={giveFrequency === 'monthly'} 
+                            onChange={() => handleGiveFrequencyChange('monthly')} 
+                          />
+                          <label htmlFor="give-monthly">Give Monthly</label>
+                        </div>
+                      </div>
+                    </div> */}
+                    {/* <h3 className="section-subtitle ltn__secondary-color text-start">{section.sectionTitle}</h3> */}
                     {/* <p className="section-description">{section.sectionTitle}</p> */}
                   </div>
                 </div>
@@ -157,7 +191,7 @@ const handleCustomDonate = () => {
                           onClick={(e) => { 
                             e.preventDefault(); 
                             e.stopPropagation(); 
-                            handleCustomDonate();
+                            handleCustomDonation();
                           }}
                           disabled={!customAmount || parseFloat(customAmount) <= 0}
                         >
