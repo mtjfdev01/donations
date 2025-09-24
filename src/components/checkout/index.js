@@ -307,7 +307,7 @@ const DonationForm = () => {
     if(isLoading)  return <LoadingSpinner />;
 
     return (
-        <div className="ltn__contact-message-area mb-120">
+        <div className="ltn__contact-message-area mb-120 mt-120 sm-mt-100">
 			<div className="container">
 				<div className="row">
 					<div className="col-lg-12">

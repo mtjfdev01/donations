@@ -31,7 +31,7 @@ const NavbarV2 = (props) => {
 						</div>
 						<div className="col-6 text-end">
 							<Link to="/donate" className="btn btn-primary donate-now-btn">
-								Donate Now
+								Donation Menu 
 							</Link>
 						</div>	
 					</div>
