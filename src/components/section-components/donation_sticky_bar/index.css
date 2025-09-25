@@ -1,0 +1,365 @@
+/* Add padding to body to prevent content overlap */
+body {
+  padding-bottom: 120px;
+}
+
+/* Reduce padding on mobile devices */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 80px;
+  }
+}
+
+/* Donation Sticky Bar Styles */
+.donation-sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #e5e5e5;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.sticky-bar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Dropdowns */
+.sticky-dropdowns {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Hide donation type and project dropdowns on small and medium devices */
+@media (max-width: 991px) {
+  .sticky-dropdown:not(.sticky-currency-dropdown) {
+    display: none;
+  }
+}
+
+/* Show currency dropdown on medium and large devices */
+/* @media (min-width: 768px) {
+  .sticky-currency-dropdown {
+    display: block;
+  }
+} */
+
+.sticky-dropdown {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: white;
+  font-size: 0.9rem;
+  color: #333;
+  min-width: 80px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Ensure dropdowns have proper positioning */
+.sticky-dropdowns {
+  position: relative;
+  z-index: 10;
+}
+
+/* Add space above sticky bar for dropdowns */
+.donation-sticky-bar {
+  margin-top: 20px;
+}
+
+.sticky-dropdown:focus {
+  outline: none;
+  border-color: #FF5A3C;
+  box-shadow: 0 0 0 2px rgba(255, 90, 60, 0.1);
+}
+
+.sticky-currency-dropdown {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+  min-width: 60px;
+}
+
+.sticky-currency-dropdown:disabled {
+  opacity: 0.7;
+}
+
+.sticky-currency-mobile {
+  display: none;
+}
+
+/* Amount Cards */
+.sticky-amounts {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sticky-amounts::-webkit-scrollbar {
+  display: none;
+}
+
+.sticky-amount-card {
+  background: linear-gradient(135deg, #FF5A3C, #e54d2e);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 60px;
+  box-shadow: 0 2px 4px rgba(255, 90, 60, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.amount-label {
+  display: block;
+}
+
+.amount-sm-label {
+  display: none;
+}
+
+.sticky-amount-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 90, 60, 0.4);
+}
+
+.sticky-amount-card:active {
+  transform: translateY(0);
+}
+
+/* Custom Amount Input */
+.sticky-custom-input {
+  flex-shrink: 0;
+  min-width: 100px;
+}
+
+/* Custom Row for Mobile */
+.sticky-custom-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sticky-amount-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+  color: #333;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.sticky-amount-input:focus {
+  outline: none;
+  border-color: #FF5A3C;
+  box-shadow: 0 0 0 2px rgba(255, 90, 60, 0.1);
+}
+
+.sticky-amount-input::placeholder {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+/* Donate Button */
+.sticky-donate-button {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.sticky-donate-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+}
+
+.sticky-donate-button:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .donation-sticky-bar {
+    padding: 0.75rem;
+  }
+  
+  .sticky-bar-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .sticky-amounts {
+    width: 100%;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .sticky-custom-row {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .sticky-custom-input {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .sticky-donate-button {
+    flex: 0 0 auto;
+    min-width: 80px;
+  }
+  
+  .sticky-amount-card {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 50px;
+  }
+  
+  .amount-label {
+    display: none;
+  }
+  
+  .amount-sm-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  
+  /* Show mobile currency dropdown */
+  .sticky-currency-mobile {
+    display: block;
+    flex-shrink: 0;
+    min-width: 50px;
+  }
+  
+  /* Hide last 3 amount cards on mobile (show only first 3) */
+  .sticky-amount-card:nth-child(n+7) {
+    display: none;
+  }
+  
+  /* Hide last menu item on small devices */
+  .sticky-amount-card:last-child {
+    display: none;
+  }
+  
+  .sticky-custom-input {
+    min-width: 80px;
+  }
+  
+  .sticky-amount-input {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .sticky-donate-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .donation-sticky-bar {
+    padding: 0.5rem;
+  }
+  
+  .sticky-bar-container {
+    gap: 0.5rem;
+  }
+  
+  
+  .sticky-amounts {
+    gap: 0.3rem;
+    overflow-x: visible;
+  }
+  
+  .sticky-custom-row {
+    gap: 0.3rem;
+  }
+  
+  .sticky-amount-card {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.75rem;
+    min-width: 45px;
+  }
+  
+  .sticky-custom-input {
+    min-width: 70px;
+  }
+  
+  .sticky-amount-input {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .sticky-donate-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Focus states for accessibility */
+.sticky-amount-card:focus,
+.sticky-donate-button:focus {
+  outline: 2px solid #FF5A3C;
+  outline-offset: 2px;
+}
+
+/* Loading state for buttons */
+.sticky-amount-card:disabled,
+.sticky-donate-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Smooth scroll for horizontal overflow */
+.sticky-amounts {
+  scroll-behavior: smooth;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .sticky-amount-card {
+    border: 2px solid #000;
+  }
+  
+  .sticky-dropdown,
+  .sticky-amount-input {
+    border-width: 2px;
+  }
+}

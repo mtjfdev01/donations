@@ -18690,6 +18690,7 @@ input.cart-plus-minus-box {
 .flood-bg-image {
   background-size: 100% auto;      /* fill horizontally only */
   min-width: 100vw;
+  min-height: 250px;
   background-position: center center;
   background-repeat: no-repeat;
   
@@ -18705,7 +18706,7 @@ input.cart-plus-minus-box {
   .flood-bg-image {
     /* min-height: 530px !important; */
     background-position: left center;
-    margin-left: -230px;
+    margin-left: -296px;
   }
   .sm-mt-100 {
     margin-top: 120px;
