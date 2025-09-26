@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../../../contexts/CartContext';
 import './index.css';
 
 const DonationStickyBar = () => {
   const { addCustomDonation, openCart } = useCart();
   
+  // Detect if running in iframe
+  const isInIframe = window.self !== window.top;
+  
   // State management
-  const [donationType, setDonationType] = useState('general');
-  const [selectedProject, setSelectedProject] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [currency, setCurrency] = useState('PKR');
+  const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
+  
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.custom-dropdown')) {
+        setIsCurrencyDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Predefined donation amounts (reduced set for sticky bar)
   const donationAmounts = [
@@ -21,13 +37,6 @@ const DonationStickyBar = () => {
     { amount: 50000, label: '50000', smLabel: '50000' }
   ];
 
-  // Donation types
-  const donationTypes = [
-    { value: 'general', label: 'General' },
-    { value: 'sadqa', label: 'Sadqa' },
-    { value: 'zakat', label: 'Zakat' }
-  ];
-
   // Currencies
   const currencies = [
     { value: 'PKR', label: 'PKR' },
@@ -36,109 +45,44 @@ const DonationStickyBar = () => {
     { value: 'GBP', label: 'GBP' }
   ];
 
-  // Projects based on donation type
-  const getProjects = () => {
-    switch (donationType) {
-      case 'sadqa':
-        return [
-          { value: 'apna_ghar', label: 'Apna Ghar' },
-          { value: 'flood_relief', label: 'Flood Relief' },
-          { value: 'education', label: 'Education' },
-          { value: 'healthcare', label: 'Healthcare' }
-        ];
-      case 'zakat':
-        return [
-          { value: 'orphan_support', label: 'Orphan Support' },
-          { value: 'widow_support', label: 'Widow Support' },
-          { value: 'poor_relief', label: 'Poor Relief' },
-          { value: 'debt_relief', label: 'Debt Relief' }
-        ];
-      default:
-        return [
-          { value: 'apna_ghar', label: 'Apna Ghar' },
-          { value: 'flood_relief', label: 'Flood Relief' },
-          { value: 'education', label: 'Education' },
-          { value: 'healthcare', label: 'Healthcare' },
-          { value: 'community', label: 'Community' }
-        ];
-    }
-  };
-
-  // Handle donation type change
-  const handleDonationTypeChange = (e) => {
-    const value = e.target.value;
-    setDonationType(value);
-    setSelectedProject(''); // Reset project selection
-  };
-
-  // Handle project change
-  const handleProjectChange = (e) => {
-    setSelectedProject(e.target.value);
-  };
 
   // Handle predefined amount selection
   const handleAmountSelect = (amount) => {
-    const description = `${donationType === 'general' ? 'General' : donationType === 'sadqa' ? 'Sadqa' : 'Zakat'} Donation - ${selectedProject || 'General Project'}`;
-    addCustomDonation(amount, description);
-    openCart();
+    if (isInIframe) {
+      // Redirect to WordPress with params
+      const url = `https://donation.mtgfoundation.org/checkout?donation_type=sadqa&project=flood&amount=${amount}`;
+      window.parent.location.href = url;
+    } else {
+      // Existing cart functionality
+      const description = `General Donation - ${amount} ${currency}`;
+      addCustomDonation(amount, description);
+      openCart();
+    }
   };
 
   // Handle custom amount submission
   const handleCustomDonation = () => {
     const amount = parseFloat(customAmount);
     if (amount > 0) {
-      const description = `${donationType === 'general' ? 'General' : donationType === 'sadqa' ? 'Sadqa' : 'Zakat'} Donation - ${selectedProject || 'Custom Amount'}`;
-      addCustomDonation(amount, description);
-      setCustomAmount('');
-      openCart();
+      if (isInIframe) {
+        // Redirect to WordPress with params
+        const url = `https://donation.mtgfoundation.org/checkout?donation_type=sadqa&project=flood&amount=${amount}`;
+        window.parent.location.href = url;
+      } else {
+        // Existing cart functionality
+        const description = `General Donation - ${amount} ${currency}`;
+        addCustomDonation(amount, description);
+        setCustomAmount('');
+        openCart();
+      }
     }
   };
 
   return (
     <div className="donation-sticky-bar">
       <div className="sticky-bar-container">
-        {/* Dropdowns */}
-        <div className="sticky-dropdowns">
-          <select
-            value={donationType}
-            onChange={handleDonationTypeChange}
-            className="sticky-dropdown"
-          >
-            {donationTypes.map(type => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
-          <select
-            value={selectedProject}
-            onChange={handleProjectChange}
-            className="sticky-dropdown"
-          >
-            <option value="">Project</option>
-            {getProjects().map(project => (
-              <option key={project.value} value={project.value}>
-                {project.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
         {/* Amount Cards */}
         <div className="sticky-amounts">
-          {/* Currency dropdown for mobile */}
-          <select
-            value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
-            className="sticky-dropdown sticky-currency-dropdown sticky-currency-mobile"
-            disabled
-          >
-            {currencies.map(currency => (
-              <option key={currency.value} value={currency.value}>
-                {currency.label}
-              </option>
-            ))}
-          </select>
           
           {donationAmounts.map((item, index) => (
             <button

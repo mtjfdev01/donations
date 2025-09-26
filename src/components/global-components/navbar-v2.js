@@ -10,6 +10,23 @@ const NavbarV2 = (props) => {
 	let CustomClass = props.CustomClass ? props.CustomClass : ''
         return (
 			<div>
+				<style jsx>{`
+					.donation-buttons {
+						display: flex;
+						gap: 0.5rem;
+						align-items: center;
+					}
+					@media (max-width: 768px) {
+						.donation-buttons {
+							flex-direction: column;
+							gap: 0.25rem;
+						}
+						.donate-now-btn {
+							font-size: 0.8rem;
+							padding: 0.4rem 0.8rem;
+						}
+					}
+				`}</style>
 				<header className={"ltn__header-area ltn__header-5 ltn__header-logo-and-mobile-menu-in-mobile ltn__header-logo-and-mobile-menu ltn__header-transparent--- gradient-color-4--- "}>
 				<div className="ltn__header-middle-area ltn__header-sticky ltn__sticky-bg-white">
 					<div className="navbar-container">
@@ -30,9 +47,11 @@ const NavbarV2 = (props) => {
 						</div>
 						</div>
 						<div className="col-6 text-end">
-							<Link to="/donate" className="btn btn-primary donate-now-btn">
-								Donation Menu 
-							</Link>
+							<div className="donation-buttons">
+								<Link to="/donate" className="btn btn-primary donate-now-btn">
+									Donation Menu 
+								</Link>
+							</div>
 						</div>	
 					</div>
 					</div>

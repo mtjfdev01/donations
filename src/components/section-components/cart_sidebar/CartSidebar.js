@@ -18,8 +18,6 @@ const CartSidebar = () => {
 
   const navigate = useNavigate();
 
-  console.log("cartItems 1122", cartItems);
-  
   const handleCheckout = () => {
     closeCart();  // Close the cart sidebar
     navigate('/checkout');  // Navigate without page reload

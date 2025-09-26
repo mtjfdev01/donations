@@ -5,6 +5,9 @@ import './index.css';
 const DonationMenuForm = () => {
   const { addCustomDonation, openCart } = useCart();
   
+  // Detect if running in iframe
+  const isInIframe = window.self !== window.top;
+  
   // State management
   const [frequency, setFrequency] = useState('once'); // 'once' or 'monthly'
   const [donationType, setDonationType] = useState('general');
@@ -77,20 +80,36 @@ const DonationMenuForm = () => {
 
   // Handle predefined amount selection
   const handleAmountSelect = (amount) => {
-    const description = `${donationType === 'general' ? 'General' : donationType === 'sadqa' ? 'Sadqa' : 'Zakat'} Donation - ${selectedProject || 'General Project'}`;
-    addCustomDonation(amount, description);
-    openCart();
+    if (isInIframe) {
+      // Redirect to WordPress with params
+      const projectParam = selectedProject || 'general';
+      const url = `https://donation.mtgfoundation.org/checkout?donation_type=${donationType}&project=${projectParam}&amount=${amount}`;
+      window.parent.location.href = url;
+    } else {
+      // Existing cart functionality
+      const description = `${donationType === 'general' ? 'General' : donationType === 'sadqa' ? 'Sadqa' : 'Zakat'} Donation - ${selectedProject || 'General Project'}`;
+      addCustomDonation(amount, description);
+      openCart();
+    }
   };
 
   // Handle custom amount submission
   const handleCustomDonation = () => {
     const amount = parseFloat(customAmount);
     if (amount > 0) {
-      const description = `${donationType === 'general' ? 'General' : donationType === 'sadqa' ? 'Sadqa' : 'Zakat'} Donation - ${customDescription || selectedProject || 'Custom Amount'}`;
-      addCustomDonation(amount, description);
-      setCustomAmount('');
-      setCustomDescription('');
-      openCart();
+      if (isInIframe) {
+        // Redirect to WordPress with params
+        const projectParam = selectedProject || 'general';
+        const url = `https://donation.mtgfoundation.org/checkout?donation_type=${donationType}&project=${projectParam}&amount=${amount}`;
+        window.parent.location.href = url;
+      } else {
+        // Existing cart functionality
+        const description = `${donationType === 'general' ? 'General' : donationType === 'sadqa' ? 'Sadqa' : 'Zakat'} Donation - ${customDescription || selectedProject || 'Custom Amount'}`;
+        addCustomDonation(amount, description);
+        setCustomAmount('');
+        setCustomDescription('');
+        openCart();
+      }
     }
   };
 

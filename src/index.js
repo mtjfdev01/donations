@@ -1,22 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { CartProvider } from './contexts/CartContext';
 import CartSidebar from './components/section-components/cart_sidebar/CartSidebar';
 
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";  // Updated imports
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";  // Updated imports
 import Donate from './components/donate';
 import Thanks from './components/thanks';
 import CheckOuttV1 from './components/checkout';
 import CategoryV2 from './components/section-components/category-v2';
+import DonationMenuForm from './components/section-components/donation_menu_form';
+import DonationStickyBar from './components/section-components/donation_sticky_bar';
 // import EmbedDonation from './components/EmbedDonation';
+
+const ScrollToTop = () => {
+    const { pathname } = useLocation();
+    
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+    
+    return null;
+  };
 
 class Root extends Component {
     render() {
         return(
             <CartProvider>
                 <Router basename="/">
+                    <ScrollToTop />
                     <div>
                         <Routes>  {/* Changed from Switch to Routes */}
                             {/* <Route path="/" element={<HomeV2 />} />
@@ -39,10 +52,11 @@ class Root extends Component {
                                                         */}
                             <Route path="/" element={<Donate />} />
                             <Route path="/donate" element={<Donate />} />
+                            <Route path="/donation_menu_form" element={<DonationMenuForm />} />
                             <Route path="/thanks" element={<Thanks />} />
                             <Route path="/checkout" element={<CheckOuttV1 />} />
                             <Route path="/donation_screen" element={<CategoryV2 showAllSections={true} />} />
-
+                            <Route path="/donation_sticky_bar" element={<DonationStickyBar />} />
                             
                         </Routes>
                         {/* <TawkMessengerReact
