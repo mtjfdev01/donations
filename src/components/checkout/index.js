@@ -8,7 +8,7 @@ import axios from 'axios';
 import qs from 'qs';
 import CryptoJS from 'crypto-js';
 import LoadingSpinner from '../global-components/loading_spinner/LoadingSpinner';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const DonationForm = () => {
     // Constants
@@ -18,7 +18,7 @@ const DonationForm = () => {
     const [formMessage, setFormMessage] = useState({ type: '', text: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { cartItems, getCartTotal, updateQuantity, removeFromCart } = useCart(); 
+    const { cartItems, getCartTotal, updateQuantity, removeFromCart, addCustomDonation } = useCart(); 
     
     const totalAmount = getCartTotal();
     // State management using hooks
@@ -33,6 +33,27 @@ const DonationForm = () => {
     });
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Check for query parameters from donation menu form navigation
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const donationType = urlParams.get('donation_type');
+        const project = urlParams.get('project');
+        const amount = urlParams.get('amount');
+        
+        if (donationType && project && amount) {
+            // Update form data with query parameters
+            setFormData(prev => ({
+                ...prev,
+                donation_type: donationType
+            }));
+            
+            // Add donation to cart
+            const description = `${donationType === 'general' ? 'General' : donationType === 'sadqa' ? 'Sadqa' : 'Zakat'} Donation - ${project}`;
+            addCustomDonation(parseFloat(amount), description);
+        }
+    }, [location.search]);
 
     const handleSubmit = async (e, paymentMethod = null) => {
         e.preventDefault();

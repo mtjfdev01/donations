@@ -136,7 +136,7 @@ const DonationMenuForm = () => {
       if (isInIframe) {
         // Redirect to WordPress with params
         const projectParam = selectedProject || 'general';
-        const url = `https://donation.mtgfoundation.org/checkout?donation_type=${donationType}&project=${projectParam}&amount=${amount}`;
+        const url = `https://donation.mtjfoundation.org/checkout?donation_type=${donationType}&project=${projectParam}&amount=${amount}`;
         window.parent.location.href = url;
       } else {
         // Existing cart functionality

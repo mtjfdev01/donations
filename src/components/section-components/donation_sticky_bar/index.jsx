@@ -75,7 +75,7 @@ const DonationStickyBar = () => {
   const handleAmountSelect = (amount) => {
     if (isInIframe) {
       // Redirect to WordPress with params
-      const url = `https://donation.mtgfoundation.org/checkout?donation_type=sadqa&project=flood&amount=${amount}`;
+      const url = `https://donation.mtjfoundation.org/checkout?donation_type=sadqa&project=flood&amount=${amount}`;
       window.parent.location.href = url;
     } else {
       // Existing cart functionality
@@ -91,7 +91,7 @@ const DonationStickyBar = () => {
     if (amount > 0) {
       if (isInIframe) {
         // Redirect to WordPress with params
-        const url = `https://donation.mtgfoundation.org/checkout?donation_type=sadqa&project=flood&amount=${amount}`;
+        const url = `https://donation.mtjfoundation.org/checkout?donation_type=sadqa&project=flood&amount=${amount}`;
         window.parent.location.href = url;
       } else {
         // Existing cart functionality
