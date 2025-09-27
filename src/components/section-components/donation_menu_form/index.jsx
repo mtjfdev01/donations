@@ -14,6 +14,7 @@ const DonationMenuForm = () => {
   const [selectedProject, setSelectedProject] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [customDescription, setCustomDescription] = useState('');
+  const [selectedAmountCard, setSelectedAmountCard] = useState(null);
 
   // Auto-resize iframe height
   useEffect(() => {
@@ -105,16 +106,26 @@ const DonationMenuForm = () => {
 
   // Handle predefined amount selection
   const handleAmountSelect = (amount) => {
-    if (isInIframe) {
-      // Redirect to WordPress with params
-      const projectParam = selectedProject || 'general';
-      const url = `https://donation.mtgfoundation.org/checkout?donation_type=${donationType}&project=${projectParam}&amount=${amount}`;
-      window.parent.location.href = url;
+    setSelectedAmountCard(amount);
+    setCustomAmount(amount.toString());
+  };
+
+  // Handle custom amount input change
+  const handleCustomAmountChange = (e) => {
+    const value = e.target.value;
+    setCustomAmount(value);
+    
+    // Clear selected amount card if input is empty or doesn't match any predefined amount
+    if (!value) {
+      setSelectedAmountCard(null);
     } else {
-      // Existing cart functionality
-      const description = `${donationType === 'general' ? 'General' : donationType === 'sadqa' ? 'Sadqa' : 'Zakat'} Donation - ${selectedProject || 'General Project'}`;
-      addCustomDonation(amount, description);
-      openCart();
+      // Check if the value matches any predefined amount
+      const matchingAmount = donationAmounts.find(item => item.amount.toString() === value);
+      if (matchingAmount) {
+        setSelectedAmountCard(matchingAmount.amount);
+      } else {
+        setSelectedAmountCard(null);
+      }
     }
   };
 
@@ -133,6 +144,7 @@ const DonationMenuForm = () => {
         addCustomDonation(amount, description);
         setCustomAmount('');
         setCustomDescription('');
+        setSelectedAmountCard(null);
         openCart();
       }
     }
@@ -219,7 +231,7 @@ const DonationMenuForm = () => {
               {donationAmounts.map((item, index) => (
                 <button
                   key={index}
-                  className="amount-button"
+                  className={`amount-button ${selectedAmountCard === item.amount ? 'selected' : ''}`}
                   onClick={() => handleAmountSelect(item.amount)}
                 >
                   <span className="amount-value">{item.label}</span>
@@ -239,7 +251,7 @@ const DonationMenuForm = () => {
                     type="number"
                     id="custom-amount"
                     value={customAmount}
-                    onChange={(e) => setCustomAmount(e.target.value)}
+                    onChange={handleCustomAmountChange}
                     placeholder="Enter amount"
                     min="1"
                     className="amount-input"
