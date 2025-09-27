@@ -48,8 +48,8 @@ const DonationMenuForm = () => {
     { amount: 5000, label: '5,000 PKR' },
     { amount: 10000, label: '10,000 PKR' },
     { amount: 25000, label: '25,000 PKR' },
-    { amount: 50000, label: '50,000 PKR' },
-    { amount: 100000, label: '100,000 PKR' }
+    // { amount: 50000, label: '50,000 PKR' },
+    // { amount: 100000, label: '100,000 PKR' }
   ];
 
   // Donation types
@@ -262,7 +262,7 @@ const DonationMenuForm = () => {
                   onClick={handleCustomDonation}
                   disabled={!customAmount || parseFloat(customAmount) <= 0}
                 >
-                  Donate {customAmount ? `${parseFloat(customAmount).toLocaleString()} PKR` : ''}
+                  Donate 
                 </button>
               </div>
             </div>
