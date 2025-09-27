@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../../../contexts/CartContext';
 import './index.css';
 
@@ -14,6 +14,31 @@ const DonationMenuForm = () => {
   const [selectedProject, setSelectedProject] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [customDescription, setCustomDescription] = useState('');
+
+  // Auto-resize iframe height
+  useEffect(() => {
+    if (isInIframe) {
+      const updateHeight = () => {
+        const height = document.documentElement.scrollHeight;
+        window.parent.postMessage({
+          type: 'WIDGET_HEIGHT',
+          height: height
+        }, '*');
+      };
+
+      // Update height on load and when content changes
+      updateHeight();
+      window.addEventListener('resize', updateHeight);
+      
+      // Update height when form state changes
+      const timer = setTimeout(updateHeight, 100);
+      
+      return () => {
+        window.removeEventListener('resize', updateHeight);
+        clearTimeout(timer);
+      };
+    }
+  }, [isInIframe, frequency, donationType, selectedProject, customAmount, customDescription]);
 
   // Predefined donation amounts
   const donationAmounts = [
@@ -114,7 +139,7 @@ const DonationMenuForm = () => {
   };
 
   return (
-    <div className="donation-menu-form">
+    <div className={`donation-menu-form ${isInIframe ? 'iframe-mode' : ''}`}>
       <div className="container">
         <div className="donation-form-wrapper">
             
@@ -123,7 +148,7 @@ const DonationMenuForm = () => {
             <div className="header-row">
               {/* Frequency Selection */}
               <div className="frequency-section">
-                <h4>Donation Frequency</h4>
+                {/* <h4 className='frequency_heading'>Donation Frequency</h4> */}
                 <div className="frequency-options">
                   <label className="frequency-option">
                     <input
@@ -153,7 +178,7 @@ const DonationMenuForm = () => {
               {/* Dropdowns Section */}
               <div className="dropdowns-section">
                 <div className="dropdown-group">
-                  <label htmlFor="donation-type">Donation Type</label>
+                  {/* <label htmlFor="donation-type" className='no-sm'>Donation Type</label> */}
                   <select
                     id="donation-type"
                     value={donationType}
@@ -168,7 +193,7 @@ const DonationMenuForm = () => {
                   </select>
                 </div>
                 <div className="dropdown-group">
-                  <label htmlFor="project">Project</label>
+                  {/* <label htmlFor="project" className='no-sm'>Project</label> */}
                   <select
                     id="project"
                     value={selectedProject}
@@ -205,11 +230,11 @@ const DonationMenuForm = () => {
 
           {/* Custom Amount Section */}
           <div className="custom-amount-section">
-            <h4>Or Enter Custom Amount</h4>
+            {/* <h4>Or Enter Custom Amount</h4> */}
             <div className="custom-amount-form">
               <div className="custom-amount-row">
                 <div className="input-group">
-                  <label htmlFor="custom-amount">Amount (PKR)</label>
+                  {/* <label htmlFor="custom-amount">Amount (PKR)</label> */}
                   <input
                     type="number"
                     id="custom-amount"
@@ -220,25 +245,14 @@ const DonationMenuForm = () => {
                     className="amount-input"
                   />
                 </div>
-                <div className="input-group">
-                  <label htmlFor="custom-description">Description (Optional)</label>
-                  <input
-                    type="text"
-                    id="custom-description"
-                    value={customDescription}
-                    onChange={(e) => setCustomDescription(e.target.value)}
-                    placeholder="Enter description"
-                    className="description-input"
-                  />
-                </div>
+                <button
+                  className="custom-donate-button"
+                  onClick={handleCustomDonation}
+                  disabled={!customAmount || parseFloat(customAmount) <= 0}
+                >
+                  Donate {customAmount ? `${parseFloat(customAmount).toLocaleString()} PKR` : ''}
+                </button>
               </div>
-              <button
-                className="custom-donate-button"
-                onClick={handleCustomDonation}
-                disabled={!customAmount || parseFloat(customAmount) <= 0}
-              >
-                Donate {customAmount ? `${parseFloat(customAmount).toLocaleString()} PKR` : 'Custom Amount'}
-              </button>
             </div>
           </div>
 

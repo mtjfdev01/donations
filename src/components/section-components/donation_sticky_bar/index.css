@@ -23,6 +23,15 @@
   overflow: visible;
 }
 
+/* Iframe-specific styling */
+.donation-sticky-bar.iframe-mode {
+  position: relative;
+  border-top: none;
+  box-shadow: none;
+  padding: 0.5rem;
+  background: #f8f9fa;
+}
+
 .sticky-bar-container {
   max-width: 1200px;
   margin: 0 auto;

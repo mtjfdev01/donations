@@ -12,6 +12,31 @@ const DonationStickyBar = () => {
   const [customAmount, setCustomAmount] = useState('');
   const [currency, setCurrency] = useState('PKR');
   const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
+
+  // Auto-resize iframe height
+  useEffect(() => {
+    if (isInIframe) {
+      const updateHeight = () => {
+        const height = document.documentElement.scrollHeight;
+        window.parent.postMessage({
+          type: 'WIDGET_HEIGHT',
+          height: height
+        }, '*');
+      };
+
+      // Update height on load and when content changes
+      updateHeight();
+      window.addEventListener('resize', updateHeight);
+      
+      // Update height when form state changes
+      const timer = setTimeout(updateHeight, 100);
+      
+      return () => {
+        window.removeEventListener('resize', updateHeight);
+        clearTimeout(timer);
+      };
+    }
+  }, [isInIframe, customAmount]);
   
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -79,7 +104,7 @@ const DonationStickyBar = () => {
   };
 
   return (
-    <div className="donation-sticky-bar">
+    <div className={`donation-sticky-bar ${isInIframe ? 'iframe-mode' : ''}`}>
       <div className="sticky-bar-container">
         {/* Amount Cards */}
         <div className="sticky-amounts">

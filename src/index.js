@@ -58,6 +58,10 @@ class Root extends Component {
                             <Route path="/donation_screen" element={<CategoryV2 showAllSections={true} />} />
                             <Route path="/donation_sticky_bar" element={<DonationStickyBar />} />
                             
+                            {/* Iframe-specific routes */}
+                            <Route path="/embed/donation" element={<DonationMenuForm />} />
+                            <Route path="/embed/donation-bar" element={<DonationStickyBar />} />
+                            
                         </Routes>
                         {/* <TawkMessengerReact
                             propertyId="68b28c0746bc0d230c342684"
