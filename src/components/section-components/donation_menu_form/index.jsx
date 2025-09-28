@@ -61,31 +61,46 @@ const DonationMenuForm = () => {
 
   // Projects based on donation type
   const getProjects = () => {
-    switch (donationType) {
-      case 'sadqa':
-        return [
-          { value: 'apna_ghar', label: 'Apna Ghar Project' },
-          { value: 'flood_relief', label: 'Flood Relief' },
-          { value: 'education', label: 'Education Support' },
-          { value: 'healthcare', label: 'Healthcare Fund' }
-        ];
-      case 'zakat':
-        return [
-          { value: 'orphan_support', label: 'Orphan Support' },
-          { value: 'widow_support', label: 'Widow Support' },
-          { value: 'poor_relief', label: 'Poor Relief' },
-          { value: 'debt_relief', label: 'Debt Relief' }
-        ];
-      default:
-        return [
-          { value: 'apna_ghar', label: 'Apna Ghar Project' },
-          { value: 'flood_relief', label: 'Flood Relief' },
-          { value: 'education', label: 'Education Support' },
-          { value: 'healthcare', label: 'Healthcare Fund' },
-          { value: 'community', label: 'Community Development' }
-        ];
-    }
+    return [
+      { value: 'health', label: 'Health' },
+      { value: 'aas_lab', label: 'AAS Lab & Diagnostic' },
+      { value: 'pwd_support', label: 'PWD Support' },
+      { value: 'ambulance', label: 'Ambulance Services' },
+      { value: 'medical_camps', label: 'Medical & Eye Camps' },
+      { value: 'mother_child', label: 'Mother & Child Care' },
+  
+      { value: 'education', label: 'Education' },
+      { value: 'scholarships', label: 'Scholarships' },
+      { value: 'edu_support', label: 'Educational Support' },
+      { value: 'kasb_training', label: 'KASB Training' },
+      { value: 'football_stitching', label: 'Football Stitching' },
+      { value: 'ecommerce_training', label: 'E-Commerce Training' },
+  
+      { value: 'clean_water', label: 'Clean Water' },
+      { value: 'community_handpumps', label: 'Community Handpumps' },
+      { value: 'hand_pumps', label: 'Hand Pumps' },
+  
+      { value: 'community_services', label: 'Community Services' },
+      { value: 'marriage_gift', label: 'Marriage Gift' },
+      { value: 'financial_assistance', label: 'Financial Assistance' },
+      { value: 'rashan', label: 'Rashan' },
+      { value: 'maskan', label: 'Maskan' },
+      { value: 'eid_gifts', label: 'Eid Gifts' },
+  
+      { value: 'disaster_mgmt', label: 'Disaster Management' },
+      { value: 'gaza_relief', label: 'Gaza Relief' },
+      { value: 'lebanon_relief', label: 'Lebanon Relief' },
+      { value: 'turkey_quake', label: 'Turkey/Morocco Earthquake' },
+      { value: 'pakistan_floods', label: 'Pakistan Floods' },
+  
+      { value: 'other_items', label: 'Other Items' },
+      { value: 'livelihood', label: 'Livelihood' },
+      { value: 'construction', label: 'Construction' },
+      { value: 'winter_pk', label: 'Winter PK' },
+      { value: 'ramadan_ration', label: 'Ramadan Ration' },
+    ];
   };
+  
 
   // Handle frequency change
   const handleFrequencyChange = (freq) => {
