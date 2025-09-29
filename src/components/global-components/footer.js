@@ -53,7 +53,7 @@ class Footer_v1 extends Component {
 				          <div className="footer-widget footer-about-widget">
 				            <div className="footer-logo">
 				              <div className="site-logo">
-				                <img src={publicUrl+"assets/img/banner/mtjf_logo.png"} alt="Logo" /> 
+				                <img src={publicUrl+"assets/img/banner/mtj_w_t_logo.png"} alt="Logo" /> 
 				              </div>
 				            </div>
 				            {/* <p>A Shelter of Dignity for Widows, Abandoned
