@@ -12,6 +12,7 @@ import CheckOuttV1 from './components/checkout';
 import CategoryV2 from './components/section-components/category-v2';
 import DonationMenuForm from './components/section-components/donation_menu_form';
 import DonationStickyBar from './components/section-components/donation_sticky_bar';
+import Footer_v1 from './components/global-components/footer';
 // import EmbedDonation from './components/EmbedDonation';
 
 const ScrollToTop = () => {
@@ -61,6 +62,8 @@ class Root extends Component {
                             {/* Iframe-specific routes */}
                             <Route path="/embed/donation" element={<DonationMenuForm />} />
                             <Route path="/embed/donation-bar" element={<DonationStickyBar />} />
+                            <Route path="/footer" element={<Footer_v1 />} />
+                            
                             
                         </Routes>
                         {/* <TawkMessengerReact

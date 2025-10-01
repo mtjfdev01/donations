@@ -95,6 +95,13 @@
   transform: translateY(0);
 }
 
+.sticky-amount-card.selected {
+  background: var(--ltn__secondary-color);
+  color: white;
+  box-shadow: 0 4px 8px rgba(255, 90, 60, 0.4);
+  transform: translateY(-2px);
+}
+
 /* Custom Amount Input */
 .sticky-custom-input {
   flex-shrink: 0;

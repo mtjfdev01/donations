@@ -12,6 +12,7 @@ const DonationStickyBar = () => {
   const [customAmount, setCustomAmount] = useState('');
   const [currency, setCurrency] = useState('PKR');
   const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
+  const [selectedAmountCard, setSelectedAmountCard] = useState(null);
 
   // Auto-resize iframe height
   useEffect(() => {
@@ -73,15 +74,26 @@ const DonationStickyBar = () => {
 
   // Handle predefined amount selection
   const handleAmountSelect = (amount) => {
-    if (isInIframe) {
-      // Redirect to WordPress with params
-      const url = `https://donation.mtjfoundation.org/checkout?donation_type=sadqa&project=flood&amount=${amount}`;
-      window.parent.location.href = url;
+    setSelectedAmountCard(amount);
+    setCustomAmount(amount.toString());
+  };
+
+  // Handle custom amount input change
+  const handleCustomAmountChange = (e) => {
+    const value = e.target.value;
+    setCustomAmount(value);
+    
+    // Clear selected amount card if input is empty or doesn't match any predefined amount
+    if (!value) {
+      setSelectedAmountCard(null);
     } else {
-      // Existing cart functionality
-      const description = `General Donation - ${amount} ${currency}`;
-      addCustomDonation(amount, description);
-      openCart();
+      // Check if the value matches any predefined amount
+      const matchingAmount = donationAmounts.find(item => item.amount.toString() === value);
+      if (matchingAmount) {
+        setSelectedAmountCard(matchingAmount.amount);
+      } else {
+        setSelectedAmountCard(null);
+      }
     }
   };
 
@@ -98,6 +110,7 @@ const DonationStickyBar = () => {
         const description = `General Donation - ${amount} ${currency}`;
         addCustomDonation(amount, description);
         setCustomAmount('');
+        setSelectedAmountCard(null);
         openCart();
       }
     }
@@ -112,7 +125,7 @@ const DonationStickyBar = () => {
           {donationAmounts.map((item, index) => (
             <button
               key={index}
-              className="sticky-amount-card"
+              className={`sticky-amount-card ${selectedAmountCard === item.amount ? 'selected' : ''}`}
               onClick={() => handleAmountSelect(item.amount)}
             >
               <span className="amount-label">{item.label}</span>
@@ -128,7 +141,7 @@ const DonationStickyBar = () => {
             <input
               type="number"
               value={customAmount}
-              onChange={(e) => setCustomAmount(e.target.value)}
+              onChange={handleCustomAmountChange}
               placeholder="Enter Amount"
               min="1"
               className="sticky-amount-input"
