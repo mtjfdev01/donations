@@ -6381,8 +6381,8 @@ ul.wp-block-latest-posts.is-grid.alignwide {
 
 .ltn__header-4 .ltn__header-middle-area,
 .ltn__header-5 .ltn__header-middle-area {
-  padding-top: 22px;
-  padding-bottom: 22px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .ltn__header-4 .ltn__header-top-area {
@@ -18690,6 +18690,7 @@ input.cart-plus-minus-box {
 .flood-bg-image {
   background-size: 100% auto;      /* fill horizontally only */
   min-width: 100vw;
+  margin-top: 4vw;
   min-height: 250px;
   background-position: center center;
   background-repeat: no-repeat;

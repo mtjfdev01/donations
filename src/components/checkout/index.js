@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const DonationForm = () => {
     // Constants
     const project_id = 4;
-    const project_name = "apna_ghar";
+    const project_name = "flood_relief";
     const [paymentFrequency, setPaymentFrequency] = useState({});
     const [formMessage, setFormMessage] = useState({ type: '', text: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,8 +57,6 @@ const DonationForm = () => {
 
     const handleSubmit = async (e, paymentMethod = null) => {
         e.preventDefault();
-         console.log("formData213", formData);
-        //  return;
         // Use the passed payment method or the current selected payment
         const currentPayment = paymentMethod;
         
@@ -272,9 +270,9 @@ const DonationForm = () => {
           SIGNATURE,
           VERSION: SIGNATURE,
           TXNDESC: (process.env.REACT_APP_TXNDESC || 'Donation'),
-          SUCCESS_URL: (process.env.REACT_APP_SUCCESS_URL || 'https://donation.mtjfoundation.org/thanks'),
+          SUCCESS_URL: (process.env.REACT_APP_SUCCESS_URL || 'https://donation.mtjfoundation.org/thanks'), 
           FAILURE_URL: (process.env.REACT_APP_FAILURE_URL || 'https://donation.mtjfoundation.org/donate?donation_for=flood_relief'), //return back to home page if payment fails
-          CHECKOUT_URL: (process.env.REACT_APP_CHECKOUT_URL || `https://mtjfoundation.org/api/donations/status?donation_id=${BASKET_ID}`), // backend api url to handle payfast response to update donation status
+          CHECKOUT_URL: (`https://mtjfoundation.org/api/donations/public/payfast/ipn`), // backend api url to handle payfast response to update donation status
           BASKET_ID,        // must match token call
           ORDER_DATE,
           CURRENCY_CODE: (process.env.REACT_APP_CURRENCY_CODE || 'PKR'),
@@ -282,10 +280,10 @@ const DonationForm = () => {
           CURRENCY_CODE:"PKR"
         };
        
-        console.log("fields ************", fields);
+        // console.log("fields ************", fields);
         // Build and submit a real HTML form (POST navigation)
         const form = document.createElement('form');
-        form.method = 'POST';
+        form.method = 'POST'; 
         form.action = 'https://ipg1.apps.net.pk/Ecommerce/api/Transaction/PostTransaction';
         form.target = '_blank'; // or '_blank' to open new tab
       
