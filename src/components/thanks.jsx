@@ -38,10 +38,11 @@ const Thanks = () => {
         }
 
         try {
+            console.log("errCode", errCode);
+            console.log("errMsg", errMsg);
             // Check if payment was successful
-            const isPaymentSuccessful = errCode === '000' && !errMsg;
             
-            if (isPaymentSuccessful) {
+            if (errCode == '000') {
                 // Call API with payload for successful payment
                 const payload = {
                     id: actualDonationId,

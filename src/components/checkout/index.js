@@ -270,7 +270,7 @@ const DonationForm = () => {
           SIGNATURE,
           VERSION: SIGNATURE,
           TXNDESC: (process.env.REACT_APP_TXNDESC || 'Donation'),
-          SUCCESS_URL: (process.env.REACT_APP_SUCCESS_URL || 'https://donation.mtjfoundation.org/thanks'), 
+          SUCCESS_URL: 'https://donation.mtjfoundation.org/thanks', 
           FAILURE_URL: (process.env.REACT_APP_FAILURE_URL || 'https://donation.mtjfoundation.org/donate?donation_for=flood_relief'), //return back to home page if payment fails
           CHECKOUT_URL: (`https://mtjfoundation.org/api/donations/public/payfast/ipn`), // backend api url to handle payfast response to update donation status
           BASKET_ID,        // must match token call
