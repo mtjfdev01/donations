@@ -158,6 +158,13 @@ const DonationForm = () => {
             return;
         }
 
+        if(!totalAmount || Number(totalAmount) <= 0 || Number(totalAmount) < 50  ){
+            setFormMessage({ 
+                type: 'error', 
+                text: 'Please add donation items to the cart or enter a valid donation amount (minimum donation amount is 50 PKR)' 
+            });
+            return;
+        }
         setIsSubmitting(true);
         setFormMessage({ type: '', text: '' });
 
@@ -390,31 +397,31 @@ const DonationForm = () => {
                                         onChange={(value) => setFormData(prev => ({ ...prev, country: value }))}
                                     />
                                 </div>
-                                        <div className="col-md-6">
-                                            <div className="input-item input-item-name ltn__custom-icon">
-                                                <input 
-                                                    type="text" 
-                                                    name="city" 
-                                                    placeholder="Enter your city"
-                                                    value={formData.city}
-                                                    onChange={handleInputChange}
-                                                    required
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="input-item input-item-textarea ltn__custom-icon">
-                                            <textarea 
-                                                name="address" 
-                                                placeholder="Enter address"
-                                                value={formData.address}
+                                    <div className="col-md-6">
+                                        <div className="input-item input-item-name ltn__custom-icon">
+                                            <input 
+                                                type="text" 
+                                                name="city" 
+                                                placeholder="Enter your city"
+                                                value={formData.city}
                                                 onChange={handleInputChange}
                                                 required
                                             />
                                         </div>
+                                    </div>
+                                    <div className="input-item input-item-textarea ltn__custom-icon">
+                                        <textarea 
+                                            name="address" 
+                                            placeholder="Enter address"
+                                            value={formData.address}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </div>
                                         
                                         {/* Payment Method Section */}
                                         <h5 className="title-2">Donate Via :</h5>
-                                        {/* <div className="col-md-6">
+                                         <div className="col-md-6">
                                             <div className="input-item">
                                                 <div 
                                                     className={`payment-option`}
@@ -432,7 +439,7 @@ const DonationForm = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> */}
+                                        </div>
 
                                         {/* payfast payment option */}
                                         <div className="col">
