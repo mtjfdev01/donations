@@ -441,27 +441,6 @@ const DonationForm = () => {
                                             </div>
                                         </div> */}
 
-                                        {/* payfast payment option */}
-                                        <div className="col">
-                                            <div className="input-item">
-                                                <div 
-                                                    className={`payment-option`}
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleSubmit(e, 'payfast');
-                                                    }}
-                                                >
-                                                    <div className="payment-icon">
-                                                        <i className="fas fa-credit-card"></i>
-                                                    </div>
-                                                    <div className="payment-content">
-                                                        <h6> Credit, Debit Card, Jazz Cash, Easy Pesa, U Pesa</h6>
-                                                        <p>Payfast's (Faisal Bank Islami) Secure online payment gateway</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         {/* blinq payment option */}
                                         <div className="col-md-6">
                                             <div className="input-item">
@@ -506,6 +485,27 @@ const DonationForm = () => {
                                                                 </div>
                                                             </div> */}
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* payfast payment option */}
+                                        <div className="col">
+                                            <div className="input-item">
+                                                <div 
+                                                    className={`payment-option`}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleSubmit(e, 'payfast');
+                                                    }}
+                                                >
+                                                    <div className="payment-icon">
+                                                        <i className="fas fa-credit-card"></i>
+                                                    </div>
+                                                    <div className="payment-content">
+                                                        <h6> Credit, Debit Card, Jazz Cash, Easy Pesa, U Pesa</h6>
+                                                        <p>Payfast's (Faisal Bank Islami) Secure online payment gateway</p>
                                                     </div>
                                                 </div>
                                             </div>
