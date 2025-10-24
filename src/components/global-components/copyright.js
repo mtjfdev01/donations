@@ -19,9 +19,9 @@ class CopyRight extends Component {
 				<div className="col-md-6 col-12 align-self-center">
 					<div className="ltn__copyright-menu text-end">
 					<ul className="go-top">
-						<li><Link to="#">Terms &amp; Conditions</Link></li>
-						<li><Link to="#">Claim</Link></li>
-						<li><Link to="#">Privacy &amp; Policy</Link></li>
+						<li><a href="https://mtjfoundation.org/privacy-policy/" target="_blank">Terms &amp; Conditions</a></li>
+						<li><a href="https://mtjfoundation.org/privacy-policy/" target="_blank">Claim</a></li>
+						<li><a href="https://mtjfoundation.org/privacy-policy/" target="_blank">Privacy &amp; Policy</a></li>
 					</ul>
 					</div>
 				</div>
