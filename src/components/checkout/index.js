@@ -158,10 +158,10 @@ const DonationForm = () => {
             return;
         }
 
-        if(!totalAmount || Number(totalAmount) <= 0 || Number(totalAmount) < 50  ){
+        if(!totalAmount || Number(totalAmount) <= 0 || Number(totalAmount) < 5  ){
             setFormMessage({ 
                 type: 'error', 
-                text: 'Please add donation items to the cart or enter a valid donation amount (minimum donation amount is 50 PKR)' 
+                text: 'Please add donation items to the cart or enter a valid donation amount (minimum donation amount is 5 PKR)' 
             });
             return;
         }
