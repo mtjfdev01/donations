@@ -24,8 +24,15 @@ import {
   import { GiOpenedFoodCan } from "react-icons/gi";
   import { PiBowlFoodFill } from "react-icons/pi";
   import { GiWaterBottle } from "react-icons/gi";
-
   import { FaCow } from 'react-icons/fa6';
+  import { GiRolledCloth } from "react-icons/gi";
+  import { FaKitchenSet } from "react-icons/fa6";
+  import { GiMonclerJacket } from "react-icons/gi";
+  import { IoWaterSharp } from "react-icons/io5";
+  import { GiIsland } from "react-icons/gi";
+  import { MdMosque } from "react-icons/md";
+  import { GiGrassMushroom } from "react-icons/gi";
+  import { FaShower } from "react-icons/fa";
 
 // 🔹 Organized donation categories into 6 sections
 export const donationSections = [
@@ -206,60 +213,126 @@ export const donationSections = [
     ]
   }
 ];
+// Old flood donation menu
+// export const flooddDonationSections = [
+//   {
+//     sectionTitle: "Emergency Relief Items",
+//     sectionSubtitle: "Essential Supplies for Flood Victims",
+//     items: [
+//       {
+//         iconClass: GiOpenedFoodCan,
+//         title: 'Meal Box',
+//         subtitle: 'Essential Food Supply',
+//         price: 550,
+//         to: '/#',
+//         image: '/assets/img/flood_appeal_icons/icons-01.png',
+//       },
+//       {
+//         iconClass: FaCow,
+//         title: 'Animal Feed (100 KG)',
+//         subtitle: 'Livestock Nutrition',
+//         price: 2500,
+//         to: '/#',
+//       },
+//       {
+//         iconClass: GiLifeJacket,
+//         title: 'Life Jacket',
+//         subtitle: 'Safety Equipment',
+//         price: 4000,
+//         to: '/#',
+//       },
+//       {
+//         iconClass: FaHome,
+//         title: 'Tent',
+//         subtitle: 'Emergency Shelter',
+//         price: 25000,
+//         to: '/#',
+//       },
+//       {
+//         iconClass: PiBowlFoodFill,
+//         title: 'Ration Pack',
+//         subtitle: 'Food Supplies',
+//         price: 6500,
+//         to: '/#',
+//       },
+//       {
+//         iconClass: GiWaterBottle,
+//         title: 'Water Bottles (Pack of 12)',
+//         subtitle: 'Clean Drinking Water',
+//         price: 400,
+//         to: '/#',
+//       },
+//       {
+//         iconClass: FaToilet,
+//         title: 'Disposable Washroom',
+//         subtitle: 'Sanitation Facility',
+//         price: 8000,
+//         to: '/#',
+//       }
+//     ]
+//   }
+// ];
 
+// latest flood donation menu 
 export const flooddDonationSections = [
   {
     sectionTitle: "Emergency Relief Items",
     sectionSubtitle: "Essential Supplies for Flood Victims",
     items: [
       {
-        iconClass: GiOpenedFoodCan,
-        title: 'Meal Box',
-        subtitle: 'Essential Food Supply',
-        price: 550,
-        to: '/#',
-        image: '/assets/img/flood_appeal_icons/icons-01.png',
-      },
-      {
-        iconClass: FaCow,
-        title: 'Animal Feed (100 KG)',
-        subtitle: 'Livestock Nutrition',
-        price: 2500,
+        iconClass: GiRolledCloth,
+        title: 'Blanket ',
+        subtitle: 'Winter Safety Item',
+        price: 5000,
         to: '/#',
       },
       {
-        iconClass: GiLifeJacket,
-        title: 'Life Jacket',
-        subtitle: 'Safety Equipment',
-        price: 4000,
+        iconClass: FaKitchenSet,
+        title: 'Kitchen Set',
+        subtitle: 'Essential Kitchen Set',
+        price: 15000,
         to: '/#',
       },
       {
-        iconClass: FaHome,
-        title: 'Tent',
-        subtitle: 'Emergency Shelter',
-        price: 25000,
+        iconClass: GiMonclerJacket,
+        title: 'Winter Package',
+        subtitle: 'Winter Safety Items Kit',
+        price: 20000,
         to: '/#',
       },
       {
-        iconClass: PiBowlFoodFill,
-        title: 'Ration Pack',
-        subtitle: 'Food Supplies',
-        price: 6500,
+        iconClass: IoWaterSharp,
+        title: 'Hand Pump',
+        subtitle: 'Water Hand Pump',
+        price: 80000,
         to: '/#',
       },
       {
-        iconClass: GiWaterBottle,
-        title: 'Water Bottles (Pack of 12)',
-        subtitle: 'Clean Drinking Water',
-        price: 400,
+        iconClass: GiIsland,
+        title: 'Agriculture Add',
+        subtitle: 'Agriculture Assistance',
+        price: 100000,
+        to: '/#',
+      },
+      {
+        iconClass: MdMosque,
+        title: 'Mosque',
+        subtitle: 'Worship Center',
+        price: 2500000,
         to: '/#',
       },
       {
         iconClass: FaToilet,
-        title: 'Disposable Washroom',
-        subtitle: 'Sanitation Facility',
-        price: 8000,
+        title: 'Room + Bathroom',
+        subtitle: 'Residence and Sanitation Facility',
+        price: 300000,
+        to: '/#',
+      },
+      {
+        iconClass: FaHome,
+        title: 'Room + Bathroom + Kitchen',
+        subtitle: 'Residence and Sanitation Facility',
+        price: 450000,
         to: '/#',
       }
     ]
