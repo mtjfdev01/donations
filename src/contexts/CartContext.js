@@ -72,7 +72,7 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  const updateQuantity = (itemId, newQuantity) => {
+  const updateQuantity = (itemId, newQuantity) => { 
     if (newQuantity <= 0) {
       removeFromCart(itemId);
       return;
