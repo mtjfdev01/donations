@@ -442,7 +442,7 @@ const DonationForm = () => {
                                         </div> */}
 
                                         {/* blinq payment option */}
-                                        <div className="col-md-6">
+                                        {/* <div className="col-md-6">
                                             <div className="input-item">
                                                 <div 
                                                     className={`payment-option`}
@@ -458,37 +458,11 @@ const DonationForm = () => {
                                                         <h6>Credit, Debit Card, Jazz Cash, Easy Pesa</h6>
                                                         <p>Blinq's Secure online payment gateway</p>
                                                         <div className="payment-selection-options">
-                                                            {/* <div className="radio-group">
-                                                                <div className="radio-item">
-                                                                    <input 
-                                                                        type="radio" 
-                                                                        id="meezan-once" 
-                                                                        name="meezan-frequency" 
-                                                                        value="once"
-                                                                        checked={paymentFrequency['meezan'] === 'once'}
-                                                                        onChange={() => handleFrequencyChange('meezan', 'once')}
-                                                                        className="once-radio"
-                                                                    />
-                                                                    <label htmlFor="meezan-once">Once</label>
-                                                                </div>
-                                                                <div className="radio-item">
-                                                                    <input 
-                                                                        type="radio" 
-                                                                        id="meezan-recurring" 
-                                                                        name="meezan-frequency" 
-                                                                        value="recurring"
-                                                                        checked={paymentFrequency['meezan'] === 'recurring'}
-                                                                        className="recurring-radio"
-                                                                        onChange={() => handleFrequencyChange('meezan', 'recurring')}  
-                                                                    />
-                                                                    <label htmlFor="meezan-recurring">Recurring</label>
-                                                                </div>
-                                                            </div> */}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         {/* payfast payment option */}
                                         <div className="col">
