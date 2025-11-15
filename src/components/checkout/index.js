@@ -442,7 +442,7 @@ const DonationForm = () => {
                                         </div> */}
 
                                         {/* blinq payment option */}
-                                        {/* <div className="col-md-6">
+                                        <div className="col-md-6">
                                             <div className="input-item">
                                                 <div 
                                                     className={`payment-option`}
@@ -462,7 +462,7 @@ const DonationForm = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> */}
+                                        </div>
 
                                         {/* payfast payment option */}
                                         <div className="col">
