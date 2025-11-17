@@ -1,18 +1,20 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { CartProvider } from './contexts/CartContext';
 import CartSidebar from './components/section-components/cart_sidebar/CartSidebar';
-
+import LoadingSpinner from './components/global-components/loading_spinner/LoadingSpinner';
 
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";  // Updated imports
-import Donate from './components/donate';
-import Thanks from './components/thanks';
-import CheckOuttV1 from './components/checkout';
-import CategoryV2 from './components/section-components/category-v2';
-import DonationMenuForm from './components/section-components/donation_menu_form';
-import DonationStickyBar from './components/section-components/donation_sticky_bar';
-import Footer_v1 from './components/global-components/footer';
+
+// Lazy load all route components for code splitting and faster initial load
+const Donate = lazy(() => import('./components/donate'));
+const Thanks = lazy(() => import('./components/thanks'));
+const CheckOuttV1 = lazy(() => import('./components/checkout'));
+const CategoryV2 = lazy(() => import('./components/section-components/category-v2'));
+const DonationMenuForm = lazy(() => import('./components/section-components/donation_menu_form'));
+const DonationStickyBar = lazy(() => import('./components/section-components/donation_sticky_bar'));
+const Footer_v1 = lazy(() => import('./components/global-components/footer'));
 // import EmbedDonation from './components/EmbedDonation';
 
 const ScrollToTop = () => {
@@ -32,40 +34,42 @@ class Root extends Component {
                 <Router basename="/">
                     <ScrollToTop />
                     <div>
-                        <Routes>  {/* Changed from Switch to Routes */}
-                            {/* <Route path="/" element={<HomeV2 />} />
-                            <Route path="/about" element={<About />} />
-                            <Route path="/team" element={<Team />} />
-                            <Route path="/team-details" element={<TeamDetails />} />
-                            <Route path="/faq" element={<Faq />} />
-                            <Route path="/coming-soon" element={<ComingSoon />} /> 
-                            <Route path="/404" element={<Error />} />
-                            <Route path="/location" element={<Location />} />
-                            <Route path="/contact" element={<Contact />} />
-                            <Route path="/checkout" element={<CheckOuttV1 />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/register" element={<Register />} />
-                            <Route path="/add-listing" element={<AddListing />} />
-                            <Route path="/wishlist" element={<Wishlist />} />
-                            <Route path="/history" element={<History />} />
-                            <Route path="/facalities-and-services" element={<Facalities_and_Services />} />
-                            <Route path="/budget-overview" element={<Budget_Overview />} />
-                                                        */}
-                            <Route path="/" element={<Donate />} />
-                            <Route path="/donate" element={<Donate />} />
-                            <Route path="/donation_menu_form" element={<DonationMenuForm />} />
-                            <Route path="/thanks" element={<Thanks />} />
-                            <Route path="/checkout" element={<CheckOuttV1 />} />
-                            <Route path="/donation_screen" element={<CategoryV2 showAllSections={true} />} />
-                            <Route path="/donation_sticky_bar" element={<DonationStickyBar />} />
-                            
-                            {/* Iframe-specific routes */}
-                            <Route path="/embed/donation" element={<DonationMenuForm />} />
-                            <Route path="/embed/donation-bar" element={<DonationStickyBar />} />
-                            <Route path="/footer" element={<Footer_v1 />} />
-                            
-                            
-                        </Routes>
+                        <Suspense fallback={<LoadingSpinner text="Loading..." />}>
+                            <Routes>  {/* Changed from Switch to Routes */}
+                                {/* <Route path="/" element={<HomeV2 />} />
+                                <Route path="/about" element={<About />} />
+                                <Route path="/team" element={<Team />} />
+                                <Route path="/team-details" element={<TeamDetails />} />
+                                <Route path="/faq" element={<Faq />} />
+                                <Route path="/coming-soon" element={<ComingSoon />} /> 
+                                <Route path="/404" element={<Error />} />
+                                <Route path="/location" element={<Location />} />
+                                <Route path="/contact" element={<Contact />} />
+                                <Route path="/checkout" element={<CheckOuttV1 />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<Register />} />
+                                <Route path="/add-listing" element={<AddListing />} />
+                                <Route path="/wishlist" element={<Wishlist />} />
+                                <Route path="/history" element={<History />} />
+                                <Route path="/facalities-and-services" element={<Facalities_and_Services />} />
+                                <Route path="/budget-overview" element={<Budget_Overview />} />
+                                                            */}
+                                <Route path="/" element={<Donate />} />
+                                <Route path="/donate" element={<Donate />} />
+                                <Route path="/donation_menu_form" element={<DonationMenuForm />} />
+                                <Route path="/thanks" element={<Thanks />} />
+                                <Route path="/checkout" element={<CheckOuttV1 />} />
+                                <Route path="/donation_screen" element={<CategoryV2 showAllSections={true} />} />
+                                <Route path="/donation_sticky_bar" element={<DonationStickyBar />} />
+                                
+                                {/* Iframe-specific routes */}
+                                <Route path="/embed/donation" element={<DonationMenuForm />} />
+                                <Route path="/embed/donation-bar" element={<DonationStickyBar />} />
+                                <Route path="/footer" element={<Footer_v1 />} />
+                                
+                                
+                            </Routes>
+                        </Suspense>
                         {/* <TawkMessengerReact
                             propertyId="68b28c0746bc0d230c342684"
                             widgetId="1j3sn61rb"
