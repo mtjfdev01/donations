@@ -2,26 +2,24 @@ import React, { useState, useEffect } from "react";
 import CountryDropdown from "../section-components/countries_dd";
 import './index.css';
 import { useCart } from "../../contexts/CartContext";
-import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 import axiosInstance from '../../utils/axios';
-import axios from 'axios';
-import qs from 'qs';
-import CryptoJS from 'crypto-js';
 import LoadingSpinner from '../global-components/loading_spinner/LoadingSpinner';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const DonationForm = () => {
     // Constants
     const project_id = 4;
-    const project_name = "flood_relief";
+    const location = useLocation();
+    
+    // State management using hooks
     const [paymentFrequency, setPaymentFrequency] = useState({});
     const [formMessage, setFormMessage] = useState({ type: '', text: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [project_name, setProjectName] = useState("flood_relief"); // Default to flood_relief
     const { cartItems, getCartTotal, updateQuantity, removeFromCart, addCustomDonation } = useCart(); 
     
     const totalAmount = getCartTotal();
-    // State management using hooks
     const [formData, setFormData] = useState({
         donor_name: '',
         donor_email: '',
@@ -32,15 +30,19 @@ const DonationForm = () => {
         address: ''
     });
 
-    const navigate = useNavigate();
-    const location = useLocation();
-
     // Check for query parameters from donation menu form navigation
     useEffect(() => {
         const urlParams = new URLSearchParams(location.search);
         const donationType = urlParams.get('donation_type');
         const project = urlParams.get('project');
         const amount = urlParams.get('amount');
+        
+        // Set project_name from query parameter or default to flood_relief
+        if (project && project.trim()) {
+            setProjectName(project.trim());
+        } else {
+            setProjectName("flood_relief");
+        }
         
         if (donationType && project && amount) {
             // Update form data with query parameters
@@ -237,21 +239,21 @@ const DonationForm = () => {
 
 
     // Handle donation type change specifically
-    const handleDonationTypeChange = (e) => {
-        const value = e.target.value;
-        console.log('Donation type changed to:', value);
-        setFormData(prev => ({
-            ...prev,
-            donation_type: value
-        }));
-    };
-    // Handle frequency change
-    const handleFrequencyChange = (paymentMethod, frequency) => {
-        setPaymentFrequency(prev => ({
-            ...prev,
-            [paymentMethod]: frequency
-        }));
-    };
+    // const handleDonationTypeChange = (e) => {
+    //     const value = e.target.value;
+    //     console.log('Donation type changed to:', value);
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         donation_type: value
+    //     }));
+    // };
+    // // Handle frequency change
+    // const handleFrequencyChange = (paymentMethod, frequency) => {
+    //     setPaymentFrequency(prev => ({
+    //         ...prev,
+    //         [paymentMethod]: frequency
+    //     }));
+    // };
 
     function postToPayfast(payfastResponse, formData) {
         const { MERCHANT_ID, ACCESS_TOKEN, BASKET_ID, TXNAMT } = payfastResponse;

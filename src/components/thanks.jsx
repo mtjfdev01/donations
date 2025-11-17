@@ -1,8 +1,7 @@
 import React from 'react';
 import Navbar from './global-components/navbar-v2';
-
 import axiosInstance from '../utils/axios';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 
@@ -85,7 +84,6 @@ const Thanks = () => {
     return (
         <div>
             <Navbar /> 
-            {/* <PageHeader headertitle="Thank You" /> */}
             <div className='thanks_container'>
                 <div className='thanks_img'>
                     <img src={imageUrl} alt="Thank You" />
@@ -107,8 +105,6 @@ const Thanks = () => {
                     )}
                 </div>
             </div>
-            {/* <CallToActionV1 />
-            <Footer /> */}
         </div>
     );
 }

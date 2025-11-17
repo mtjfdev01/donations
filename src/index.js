@@ -15,7 +15,6 @@ const CategoryV2 = lazy(() => import('./components/section-components/category-v
 const DonationMenuForm = lazy(() => import('./components/section-components/donation_menu_form'));
 const DonationStickyBar = lazy(() => import('./components/section-components/donation_sticky_bar'));
 const Footer_v1 = lazy(() => import('./components/global-components/footer'));
-// import EmbedDonation from './components/EmbedDonation';
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
@@ -35,25 +34,7 @@ class Root extends Component {
                     <ScrollToTop />
                     <div>
                         <Suspense fallback={<LoadingSpinner text="Loading..." />}>
-                            <Routes>  {/* Changed from Switch to Routes */}
-                                {/* <Route path="/" element={<HomeV2 />} />
-                                <Route path="/about" element={<About />} />
-                                <Route path="/team" element={<Team />} />
-                                <Route path="/team-details" element={<TeamDetails />} />
-                                <Route path="/faq" element={<Faq />} />
-                                <Route path="/coming-soon" element={<ComingSoon />} /> 
-                                <Route path="/404" element={<Error />} />
-                                <Route path="/location" element={<Location />} />
-                                <Route path="/contact" element={<Contact />} />
-                                <Route path="/checkout" element={<CheckOuttV1 />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/register" element={<Register />} />
-                                <Route path="/add-listing" element={<AddListing />} />
-                                <Route path="/wishlist" element={<Wishlist />} />
-                                <Route path="/history" element={<History />} />
-                                <Route path="/facalities-and-services" element={<Facalities_and_Services />} />
-                                <Route path="/budget-overview" element={<Budget_Overview />} />
-                                                            */}
+                            <Routes>
                                 <Route path="/" element={<Donate />} />
                                 <Route path="/donate" element={<Donate />} />
                                 <Route path="/donation_menu_form" element={<DonationMenuForm />} />
@@ -66,14 +47,8 @@ class Root extends Component {
                                 <Route path="/embed/donation" element={<DonationMenuForm />} />
                                 <Route path="/embed/donation-bar" element={<DonationStickyBar />} />
                                 <Route path="/footer" element={<Footer_v1 />} />
-                                
-                                
                             </Routes>
                         </Suspense>
-                        {/* <TawkMessengerReact
-                            propertyId="68b28c0746bc0d230c342684"
-                            widgetId="1j3sn61rb"
-                        /> */}
                         <CartSidebar />
                     </div>
                 </Router>

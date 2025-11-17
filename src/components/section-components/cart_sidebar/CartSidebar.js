@@ -128,7 +128,7 @@ const CartSidebar = () => {
                 Continue Donating
               </button>
               <button className="checkout-btn" onClick={handleCheckout}>
-                Proceed to Donate
+                Checkout
               </button>
             </div>
           </div>
