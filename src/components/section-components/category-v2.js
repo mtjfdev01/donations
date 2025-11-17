@@ -25,7 +25,7 @@ const CategoryV2 = (props) => {
   // Parse query parameters to determine donation type
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const donationFor = searchParams.get('donation_for') || searchParams.get('donationFor');
+    const donationFor = searchParams.get('donation_for') || searchParams.get('donationFor'); 
     
     if (donationFor) {
       const normalizedType = donationFor.toLowerCase().trim();

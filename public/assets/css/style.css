@@ -18699,7 +18699,7 @@ input.cart-plus-minus-box {
 
 @media screen and (min-width: 768px) {
   .flood-bg-image {
-    min-height: 700px !important;
+    min-height: 500px !important;
   }
 }
 

@@ -1,50 +1,46 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import Social from '../section-components/social';
 import Copyright from './copyright';
 import { FaMobileScreen } from "react-icons/fa6";
 import { IoCallSharp } from "react-icons/io5";
 
-class Footer_v1 extends Component {
+const Footer_v1 = () => {
+    useEffect(() => {
+        const handleGoTopClick = (event) => {
+            event.preventDefault();
+            const overlay = document.querySelector('.quarter-overlay');
+            if (overlay) {
+                overlay.style.display = 'block';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 900);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
 
-    componentDidMount() {
+        const handleThemeBtnClick = () => {
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.classList.remove('modal-backdrop'));
+            document.querySelectorAll('.show').forEach(el => el.classList.remove('show'));
+            document.querySelectorAll('.fade').forEach(el => el.classList.remove('fade'));
+            document.body.style.cssText = '';
+        };
 
-    	const $ = window.$;
-    	
-        let publicUrl = process.env.PUBLIC_URL+'/'
-        const minscript = document.createElement("script");
-        minscript.async = true;
-        minscript.src = publicUrl + "assets/js/main.js";
+        const goTopLinks = document.querySelectorAll('.go-top a');
+        goTopLinks.forEach(link => link.addEventListener('click', handleGoTopClick));
 
-        document.body.appendChild(minscript);
+        const themeButtons = document.querySelectorAll('.theme-btn-1');
+        themeButtons.forEach(btn => btn.addEventListener('click', handleThemeBtnClick));
 
-         $('.go-top').find('a').on('click', function () {
+        return () => {
+            goTopLinks.forEach(link => link.removeEventListener('click', handleGoTopClick));
+            themeButtons.forEach(btn => btn.removeEventListener('click', handleThemeBtnClick));
+        };
+    }, []);
 
-			$(".quarter-overlay").fadeIn(1);
+    let publicUrl = process.env.PUBLIC_URL+'/'
+    let imgattr = "Footer logo"
 
-				$(window).scrollTop(0);
-
-			setTimeout(function(){
-			    	$(".quarter-overlay").fadeOut(300);
-				}, 800);
-
-        });
-
-
-		$(document).on('click','.theme-btn-1 ', function(){ 
-            $( 'div' ).removeClass( 'modal-backdrop' );
-            $( 'div' ).removeClass( 'show' );
-            $( 'div' ).removeClass( 'fade' );
-			$('body').attr("style", "");
-        });
-    }
-
-    render() {
-
-        let publicUrl = process.env.PUBLIC_URL+'/'
-        let imgattr = "Footer logo"
-
-        return (
+    return (
 				<footer className="ltn__footer-area  ">
 				  <div className="footer-top-area  section-bg-2 plr--5">
 				    <div className="container-fluid">
@@ -199,9 +195,6 @@ class Footer_v1 extends Component {
 				  </div>
 				  <Copyright />
 				</footer>
-        )
-    }
-}
-
-
-export default Footer_v1
+        );
+};
+export default Footer_v1;

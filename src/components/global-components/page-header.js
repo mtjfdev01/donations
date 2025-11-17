@@ -10,10 +10,12 @@ class Page_header extends Component {
         let Subheader = this.props.subheader ? this.props.subheader : HeaderTitle
 		let CustomClass = this.props.customclass ? this.props.customclass : ''
         let Img = this.props.Img ? this.props.Img :'14.jpg'
-
+		console.log("publicUrl", publicUrl)
         return (
 
-		<div className={"text-left bg-image sm-mt-100 "+CustomClass} data-bs-bg={publicUrl+"assets/img/bg/org_flood.jpg"}> 
+		<div className={"text-left bg-image sm-mt-100 "+CustomClass}
+		style={{backgroundImage: `url(${publicUrl+"assets/img/bg/org_flood.jpg"})`}} 
+		> 
 			<div className="container">
 				<div className="row">
 				<div className="col-lg-12"> 
