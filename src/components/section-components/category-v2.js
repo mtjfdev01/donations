@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { 
   FaMinus, 
   FaPlus,
+  FaRegCopy,
 } from 'react-icons/fa';
 import { 
   getDonationSectionsByType,
@@ -18,9 +19,53 @@ const CategoryV2 = (props) => {
   const [customDescription, setCustomDescription] = useState('');
   const [donationType, setDonationType] = useState(DONATION_TYPES.FLOOD);
   const [giveFrequency, setGiveFrequency] = useState('once'); // 'once' or 'monthly'
+  const [isIbanCopied, setIsIbanCopied] = useState(false);
   const { addToCart, openCart, addCustomDonation } = useCart();
   const location = useLocation();
   let publicUrl = process.env.PUBLIC_URL+'/'
+  const IBAN_NUMBER = process.env.REACT_APP_MTJ_IBAN || 'PK15FAYS3369301000003097';
+  const ibanNoticeStyles = {
+    wrapper: {
+      backgroundColor: '#fff7ed',
+      border: '1px solid rgba(255,90,60,0.3)',
+      borderRadius: '12px',
+      padding: '16px 20px',
+      marginBottom: '24px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px'
+    },
+    text: {
+      fontWeight: 600,
+      color: '#312e2b'
+    },
+    copyRow: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: '10px',
+      alignItems: 'center'
+    },
+    value: {
+      fontFamily: '"Courier New", monospace',
+      fontSize: '1rem',
+      letterSpacing: '0.05em'
+    },
+    button: {
+      border: 'none',
+      backgroundColor: '#ff5a3c',
+      color: '#fff',
+      borderRadius: '6px',
+      padding: '6px 10px',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px'
+    },
+    feedback: {
+      color: '#0f9d58',
+      fontWeight: 600
+    }
+  };
 
   // Parse query parameters to determine donation type
   useEffect(() => {
@@ -91,6 +136,28 @@ const handleCustomDonation = () => {
   }
 };
 
+const handleCopyIban = async () => {
+  try {
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(IBAN_NUMBER);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = IBAN_NUMBER;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setIsIbanCopied(true);
+    setTimeout(() => setIsIbanCopied(false), 2000);
+  } catch (error) {
+    console.error('Failed to copy IBAN:', error);
+  }
+};
+
 // Handle give frequency change
 const handleGiveFrequencyChange = (frequency) => {
   setGiveFrequency(frequency);
@@ -111,6 +178,24 @@ const handleGiveFrequencyChange = (frequency) => {
     return (
       <div className="ltn__category-area ltn__product-gutter section-bg-1--- pt-30 pb-70">
         <div className="container">
+          <div className="iban-notice" style={ibanNoticeStyles.wrapper}>
+            <div className="iban-notice__text" style={ibanNoticeStyles.text}>
+              In case of any inconvenience, please donate directly via our IBAN:
+            </div>
+            <div className="iban-notice__copy" style={ibanNoticeStyles.copyRow}>
+              <span className="iban-notice__value" style={ibanNoticeStyles.value}>{IBAN_NUMBER}</span>
+              <button
+                type="button"
+                className="iban-notice__button"
+                onClick={handleCopyIban}
+                aria-label="Copy IBAN number"
+                style={ibanNoticeStyles.button}
+              >
+                <FaRegCopy />
+              </button>
+              {isIbanCopied && <span className="iban-notice__feedback" style={ibanNoticeStyles.feedback}>Copied!</span>}
+            </div>
+          </div>
           <div className="row">
             <div className="col-lg-12">
               <div className="section-title-area ltn__section-title-2--- text-center lg-pt-80">

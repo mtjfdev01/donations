@@ -123,21 +123,6 @@ const DonationForm = () => {
             return;
         }
         
-        if (!formData.address.trim()) {
-            setFormMessage({ 
-                type: 'error', 
-                text: 'Please enter your address' 
-            });
-            setTimeout(() => {
-                const addressField = document.querySelector('textarea[name="address"]');
-                if (addressField) {
-                    addressField.focus();
-                    addressField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }, 100);
-            return;
-        }
-        
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(formData.donor_email)) {
@@ -160,10 +145,10 @@ const DonationForm = () => {
             return;
         }
 
-        if(!totalAmount || Number(totalAmount) <= 0 || Number(totalAmount) < 5  ){
+        if(!totalAmount || Number(totalAmount) <= 0 || Number(totalAmount) < 100  ){
             setFormMessage({ 
                 type: 'error', 
-                text: 'Please add donation items to the cart or enter a valid donation amount (minimum donation amount is 5 PKR)' 
+                text: 'Please add donation items to the cart or enter a valid donation amount (minimum donation amount is 100 PKR)' 
             });
             return;
         }
@@ -467,7 +452,7 @@ const DonationForm = () => {
                                         </div>
 
                                         {/* payfast payment option */}
-                                        <div className="col">
+                                        {/* <div className="col">
                                             <div className="input-item">
                                                 <div 
                                                     className={`payment-option`}
@@ -485,7 +470,7 @@ const DonationForm = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     
                                     <p>
