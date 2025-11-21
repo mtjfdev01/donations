@@ -14,7 +14,7 @@ class Page_header extends Component {
         return (
 
 		<div className={"text-left bg-image sm-mt-100 "+CustomClass}
-		style={{backgroundImage: `url(${publicUrl+"assets/img/bg/org_flood.jpg"})`}} 
+		style={{backgroundImage: `url(${publicUrl+"assets/img/bg/org_flood.webp"})`}} 
 		> 
 			<div className="container">
 				<div className="row">

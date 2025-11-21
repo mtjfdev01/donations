@@ -1,3 +1,7 @@
+import '@fontsource/poppins/400.css'; // Regular
+import '@fontsource/poppins/500.css'; // Medium
+import '@fontsource/poppins/600.css'; // Semibold
+import '@fontsource/poppins/700.css'; // Bold
 import React, { Component, useEffect, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 

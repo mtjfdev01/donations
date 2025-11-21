@@ -57,7 +57,7 @@ const NavbarV2 = (props) => {
 								<div className="site-logo-wrap">
 									<div className="site-logo go-top">
 										<a href="https://mtjfoundation.org/"> 
-											<img src={publicUrl+"assets/img/banner/mtjf_logo.png"} alt="mtjf_logo" /> 
+											<img src={publicUrl+"assets/img/banner/mtjf_logo.webp"} alt="mtjf_logo" /> 
 										</a>
 									</div> 
 								</div>
